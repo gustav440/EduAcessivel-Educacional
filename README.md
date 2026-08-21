@@ -1,4 +1,4 @@
-# EduAcess-vel-Central-de-Conte-do-Educacional-Acess-vel
+#EduAcessível — Central de Conteúdo Educacional Acessível
  Plataforma de aprendizagem adaptativa e inclusiva focada em neurodivergentes e PCDs.
 ## 📅 Cronograma do Projeto
 
