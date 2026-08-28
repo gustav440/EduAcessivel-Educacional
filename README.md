@@ -6,8 +6,8 @@
 |--------|-------|------|
 | **1 semana** | 🎨 **Front-end** | Construir todas as páginas e deixar a interface navegável |
 | **2 semana** | ⚙️ **Back-end** | Criar servidor, API e banco de dados |
-| **3 semana** | 🔗 **Integração** | Conectar Front-end + Back-end + Banco |
+| **3 semana** | 🔗 **Integração** | dtConectar Front-end + Back-end + Banco |
 | **4 semana** | 🧪 **Testes e correções** | Encontrar e corrigir bugs |
 | **5 semana** | 📚 **Documentação** | Finalizar documentação e preparar apresentação |
-| **14/09** | 🚀 **ENTREGA** | Revisão final e entrega |
+| **14/09** | 🚀 **ENTREGA** | Revhisão final e entrega |
 
