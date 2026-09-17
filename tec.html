@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Curso de Introdução à Programação - Edu Acessível."
+    >
+
+    <title>Introdução à Programação | Edu Acessível</title>
+
+    <link
+        rel="stylesheet"
+        href="css/programacao.css"
+
+    >
+
+    <style>
+
+        /* =========================================================
+   EDU ACESSÍVEL
+   PÁGINA DE AULA
+   ========================================================= */
+
+:root {
+
+    --primary: #5b5ce2;
+    --primary-dark: #4445b8;
+
+    --background: #f7f8fc;
+    --surface: #ffffff;
+    --surface-alt: #eef0f7;
+
+    --text: #1f2937;
+    --text-light: #667085;
+
+    --border: #d9dce5;
+
+    --radius: 16px;
+
+    --container: 1200px;
+}
+
+
+/* =========================
+   RESET
+   ========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    line-height: 1.7;
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.lesson-header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    background: var(--surface);
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.lesson-header-container {
+
+    width:
+        min(
+            calc(100% - 40px),
+            var(--container)
+        );
+
+    min-height: 72px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+/* =========================
+   LOGO
+   ========================= */
+
+.logo {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 24px;
+
+    font-weight: 800;
+}
+
+
+.logo span span {
+    color: var(--primary);
+}
+
+
+.logo-icon {
+    font-size: 28px;
+}
+
+
+/* =========================
+   VOLTAR
+   ========================= */
+
+.back-button {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--text-light);
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.back-button:first-letter {
+    font-size: 25px;
+}
+
+
+.back-button:hover {
+    color: var(--primary);
+
+    transform: translateX(-3px);
+}
+
+
+/* =========================
+   ACESSIBILIDADE
+   ========================= */
+
+.accessibility-button {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 10px 15px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.accessibility-button:hover {
+    background: var(--primary-dark);
+}
+
+
+/* =========================
+   PROGRESSO
+   ========================= */
+
+.course-progress {
+
+    background: var(--surface);
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.progress-container {
+
+    width:
+        min(
+            calc(100% - 40px),
+            var(--container)
+        );
+
+    margin: auto;
+
+    padding: 16px 0;
+}
+
+
+.progress-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 8px;
+
+    color: var(--text-light);
+
+    font-size: 13px;
+}
+
+
+.progress-info strong {
+    color: var(--primary);
+}
+
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: var(--surface-alt);
+}
+
+
+.progress-value {
+
+    width: 20%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: var(--primary);
+}
+
+
+/* =========================
+   LAYOUT
+   ========================= */
+
+.lesson-page {
+
+    width:
+        min(
+            calc(100% - 40px),
+            var(--container)
+        );
+
+    margin: auto;
+
+    padding: 50px 0 80px;
+}
+
+
+.lesson-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        280px 1fr;
+
+    gap: 50px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   SIDEBAR
+   ========================= */
+
+.lesson-sidebar {
+
+    position: sticky;
+
+    top: 125px;
+
+    padding: 22px;
+
+    background: var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius);
+}
+
+
+.course-title {
+
+    display: flex;
+
+    gap: 12px;
+
+    padding-bottom: 20px;
+
+    margin-bottom: 15px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+
+.course-icon {
+
+    display: grid;
+
+    place-items: center;
+
+    width: 45px;
+
+    height: 45px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    background: #eeeaff;
+
+    font-size: 25px;
+}
+
+
+.course-category {
+
+    color: var(--primary);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+.course-title h2 {
+
+    margin-top: 3px;
+
+    font-size: 15px;
+
+    line-height: 1.3;
+}
+
+
+/* =========================
+   MENU DE AULAS
+   ========================= */
+
+.lesson-menu {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+
+.lesson-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    color: var(--text-light);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.lesson-item:hover {
+
+    background: var(--surface-alt);
+
+    color: var(--primary);
+}
+
+
+.lesson-item.active {
+
+    background:
+        rgba(91, 92, 226, 0.10);
+
+    color: var(--primary);
+}
+
+
+.lesson-number {
+
+    display: grid;
+
+    place-items: center;
+
+    width: 28px;
+
+    height: 28px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--surface-alt);
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+.lesson-item.active .lesson-number {
+
+    background: var(--primary);
+
+    color: white;
+}
+
+
+/* =========================
+   CABEÇALHO DA AULA
+   ========================= */
+
+.lesson-heading {
+
+    max-width: 800px;
+
+    margin-bottom: 25px;
+}
+
+
+.eyebrow {
+
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    color: var(--primary);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.lesson-heading h1 {
+
+    margin-bottom: 12px;
+
+    font-size:
+        clamp(35px, 5vw, 52px);
+
+    line-height: 1.1;
+}
+
+
+.lesson-heading p {
+
+    color: var(--text-light);
+
+    font-size: 18px;
+}
+
+
+/* =========================
+   FERRAMENTAS
+   ========================= */
+
+.accessibility-tools {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    margin-bottom: 35px;
+
+    background: var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+}
+
+
+.accessibility-tools button {
+
+    padding: 9px 13px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.accessibility-tools button:hover {
+
+    border-color: var(--primary);
+
+    color: var(--primary);
+}
+
+
+/* =========================
+   TEXTO DA AULA
+   ========================= */
+
+.lesson-section {
+
+    max-width: 800px;
+
+    margin-bottom: 35px;
+}
+
+
+.lesson-section h2 {
+
+    margin-bottom: 13px;
+
+    font-size: 26px;
+}
+
+
+.lesson-section p {
+
+    margin-bottom: 15px;
+
+    color: var(--text-light);
+
+    font-size: 16px;
+}
+
+
+.lesson-section strong {
+
+    color: var(--text);
+}
+
+
+/* =========================
+   DESTAQUE
+   ========================= */
+
+.lesson-highlight {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    max-width: 800px;
+
+    padding: 22px;
+
+    margin: 35px 0;
+
+    border-left:
+        5px solid var(--primary);
+
+    border-radius: 10px;
+
+    background:
+        rgba(91, 92, 226, 0.08);
+}
+
+
+.highlight-icon {
+
+    font-size: 28px;
+}
+
+
+.lesson-highlight strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+}
+
+
+.lesson-highlight p {
+
+    color: var(--text-light);
+}
+
+
+/* =========================
+   LISTA
+   ========================= */
+
+.steps {
+
+    padding-left: 25px;
+
+    margin: 20px 0;
+
+    color: var(--text-light);
+}
+
+
+.steps li {
+
+    margin-bottom: 8px;
+
+    padding-left: 5px;
+}
+
+
+/* =========================
+   CÓDIGO
+   ========================= */
+
+.code-container {
+
+    overflow: hidden;
+
+    margin: 25px 0;
+
+    border-radius: 12px;
+
+    background: #171923;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.15);
+}
+
+
+.code-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 10px 15px;
+
+    background: #222431;
+
+    color: #bbb;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.code-header button {
+
+    padding: 5px 9px;
+
+    border: 1px solid #444;
+
+    border-radius: 6px;
+
+    background: transparent;
+
+    color: #ddd;
+}
+
+
+.code-container pre {
+
+    overflow-x: auto;
+
+    padding: 22px;
+
+    color: #e7e7e7;
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+.code-explanation {
+
+    font-size: 14px !important;
+}
+
+
+/* =========================
+   RESUMO
+   ========================= */
+
+.lesson-summary {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 18px;
+
+    max-width: 800px;
+
+    padding: 25px;
+
+    margin: 40px 0;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+
+.lesson-summary > span {
+
+    font-size: 35px;
+}
+
+
+.lesson-summary h2 {
+
+    margin-bottom: 12px;
+
+    font-size: 21px;
+}
+
+
+.lesson-summary ul {
+
+    padding-left: 20px;
+
+    color: var(--text-light);
+}
+
+
+.lesson-summary li {
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================
+   NAVEGAÇÃO
+   ========================= */
+
+.lesson-navigation {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    max-width: 800px;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid var(--border);
+}
+
+
+.lesson-nav-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 46px;
+
+    padding: 10px 20px;
+
+    border-radius: 10px;
+
+    font-weight: 800;
+
+    transition: 0.2s ease;
+}
+
+
+.lesson-nav-button.primary {
+
+    background: var(--primary);
+
+    color: white;
+}
+
+
+.lesson-nav-button.primary:hover {
+
+    background: var(--primary-dark);
+
+    transform: translateY(-2px);
+}
+
+
+.lesson-nav-button.secondary {
+
+    border:
+        1px solid var(--border);
+
+    background: var(--surface);
+
+    color: var(--text);
+}
+
+
+.lesson-nav-button.secondary:hover {
+
+    border-color: var(--primary);
+
+    color: var(--primary);
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+.lesson-footer {
+
+    padding: 45px 0 20px;
+
+    background: #161827;
+
+    color: white;
+}
+
+
+.footer-container {
+
+    width:
+        min(
+            calc(100% - 40px),
+            var(--container)
+        );
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    padding-bottom: 30px;
+}
+
+
+.lesson-footer .logo span span {
+
+    color: #a5b4fc;
+}
+
+
+.lesson-footer p {
+
+    margin-top: 7px;
+
+    color: #c5c7d4;
+}
+
+
+.footer-links {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 20px;
+}
+
+
+.footer-links a {
+
+    color: #c5c7d4;
+}
+
+
+.footer-links a:hover {
+
+    color: white;
+
+    text-decoration: underline;
+}
+
+
+.copyright {
+
+    width:
+        min(
+            calc(100% - 40px),
+            var(--container)
+        );
+
+    margin: auto;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.15);
+
+    color: #c5c7d4;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+body.large-text {
+
+    font-size: 19px;
+}
+
+
+body.large-text .lesson-heading h1 {
+
+    font-size:
+        clamp(40px, 5vw, 58px);
+}
+
+
+body.high-contrast {
+
+    --primary: #ffff00;
+
+    --primary-dark: #ffff00;
+
+    --background: #000;
+
+    --surface: #000;
+
+    --surface-alt: #111;
+
+    --text: #fff;
+
+    --text-light: #fff;
+
+    --border: #fff;
+
+    background: #000;
+
+    color: #fff;
+}
+
+
+body.high-contrast .lesson-heading h1,
+
+body.high-contrast .lesson-section h2 {
+
+    color: white;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .lesson-layout {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .lesson-sidebar {
+
+        position: static;
+
+    }
+
+
+    .lesson-menu {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .lesson-header-container {
+
+        width:
+            min(
+                calc(100% - 28px),
+                var(--container)
+            );
+    }
+
+
+    .lesson-header .logo {
+
+        font-size: 19px;
+    }
+
+
+    .logo-icon {
+
+        font-size: 23px;
+    }
+
+
+    .accessibility-button span,
+
+    .back-button span {
+
+        display: none;
+    }
+
+
+    .lesson-page {
+
+        width:
+            min(
+                calc(100% - 28px),
+                var(--container)
+            );
+
+        padding-top: 30px;
+    }
+
+
+    .lesson-menu {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .lesson-heading h1 {
+
+        font-size: 36px;
+    }
+
+
+    .lesson-heading p {
+
+        font-size: 16px;
+    }
+
+
+    .accessibility-tools {
+
+        flex-direction: column;
+    }
+
+
+    .accessibility-tools button {
+
+        width: 100%;
+
+        text-align: left;
+    }
+
+
+    .lesson-navigation {
+
+        flex-direction: column;
+    }
+
+
+    .lesson-nav-button {
+
+        width: 100%;
+    }
+
+
+    .footer-container {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .footer-links {
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+}
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="lesson-header">
+
+        <div class="lesson-header-container">
+
+            <a
+                href="conteudo.html"
+                class="back-button"
+                aria-label="Voltar para conteúdos"
+            >
+                ←
+                <span>Conteúdos</span>
+            </a>
+
+
+            <a
+                href="index.html"
+                class="logo"
+                aria-label="Edu Acessível - Página inicial"
+            >
+
+                <span class="logo-icon">🎓</span>
+
+                <span>
+                    Edu<span>Acessível</span>
+                </span>
+
+            </a>
+
+
+            <button
+                class="accessibility-button"
+                type="button"
+                id="accessibility-button"
+            >
+                ♿
+                <span>Acessibilidade</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         PROGRESSO
+         ===================================================== -->
+
+    <section class="course-progress">
+
+        <div class="progress-container">
+
+            <div class="progress-info">
+
+                <span>
+                    Introdução à Programação
+                </span>
+
+                <strong>
+                    Aula 1 de 5
+                </strong>
+
+            </div>
+
+
+            <div
+                class="progress-bar"
+                role="progressbar"
+                aria-valuenow="20"
+                aria-valuemin="0"
+                aria-valuemax="100"
+            >
+
+                <div class="progress-value"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="lesson-page">
+
+        <div class="lesson-layout">
+
+
+            <!-- =================================================
+                 MENU DE AULAS
+                 ================================================= -->
+
+            <aside class="lesson-sidebar">
+
+                <div class="course-title">
+
+                    <span class="course-icon">
+                        💻
+                    </span>
+
+                    <div>
+
+                        <span class="course-category">
+                            TECNOLOGIA
+                        </span>
+
+                        <h2>
+                            Introdução à Programação
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <nav
+                    class="lesson-menu"
+                    aria-label="Aulas do curso"
+                >
+
+                    <a
+                        href="#"
+                        class="lesson-item active"
+                    >
+
+                        <span class="lesson-number">
+                            1
+                        </span>
+
+                        <span>
+                            O que é programação?
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="lesson-item"
+                    >
+
+                        <span class="lesson-number">
+                            2
+                        </span>
+
+                        <span>
+                            Lógica de programação
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="lesson-item"
+                    >
+
+                        <span class="lesson-number">
+                            3
+                        </span>
+
+                        <span>
+                            Variáveis
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="lesson-item"
+                    >
+
+                        <span class="lesson-number">
+                            4
+                        </span>
+
+                        <span>
+                            Condições
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="lesson-item"
+                    >
+
+                        <span class="lesson-number">
+                            5
+                        </span>
+
+                        <span>
+                            Primeiro programa
+                        </span>
+
+                    </a>
+
+                </nav>
+
+            </aside>
+
+
+
+            <!-- =================================================
+                 AULA
+                 ================================================= -->
+
+            <article class="lesson-content">
+
+
+                <!-- Cabeçalho da aula -->
+
+                <div class="lesson-heading">
+
+                    <span class="eyebrow">
+                        AULA 01 • INTRODUÇÃO
+                    </span>
+
+                    <h1>
+                        O que é programação?
+                    </h1>
+
+                    <p>
+                        Entenda o que significa programar e como
+                        os computadores seguem nossas instruções.
+                    </p>
+
+                </div>
+
+
+
+                <!-- Recursos de acessibilidade -->
+
+                <div class="accessibility-tools">
+
+                    <button
+                        type="button"
+                        id="listen-button"
+                    >
+                        🔊 Ouvir conteúdo
+                    </button>
+
+                    <button
+                        type="button"
+                        id="increase-text"
+                    >
+                        🔤 Aumentar texto
+                    </button>
+
+                    <button
+                        type="button"
+                        id="contrast-button"
+                    >
+                        🎨 Alto contraste
+                    </button>
+
+                </div>
+
+
+
+                <!-- Introdução -->
+
+                <section class="lesson-section">
+
+                    <h2>
+                        O que significa programar?
+                    </h2>
+
+                    <p>
+                        Programar é criar instruções para que um
+                        computador consiga realizar determinadas
+                        tarefas.
+                    </p>
+
+                    <p>
+                        Essas instruções são escritas utilizando
+                        linguagens de programação, como
+                        <strong>JavaScript</strong>,
+                        <strong>Python</strong> e
+                        <strong>Java</strong>.
+                    </p>
+
+                </section>
+
+
+
+                <!-- Destaque -->
+
+                <div class="lesson-highlight">
+
+                    <span class="highlight-icon">
+                        💡
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Pense de forma simples:
+                        </strong>
+
+                        <p>
+                            Programar é como ensinar uma pessoa
+                            a realizar uma tarefa seguindo
+                            uma sequência de passos.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Exemplo -->
+
+                <section class="lesson-section">
+
+                    <h2>
+                        Um exemplo do dia a dia
+                    </h2>
+
+                    <p>
+                        Imagine que queremos ensinar alguém
+                        a fazer um sanduíche.
+                    </p>
+
+                    <ol class="steps">
+
+                        <li>
+                            Pegar o pão.
+                        </li>
+
+                        <li>
+                            Colocar o recheio.
+                        </li>
+
+                        <li>
+                            Fechar o sanduíche.
+                        </li>
+
+                        <li>
+                            Servir.
+                        </li>
+
+                    </ol>
+
+                    <p>
+                        Um programa funciona de maneira parecida.
+                        O computador recebe uma sequência de
+                        instruções e executa cada uma delas.
+                    </p>
+
+                </section>
+
+
+
+                <!-- Código -->
+
+                <section class="lesson-section">
+
+                    <h2>
+                        Nosso primeiro exemplo
+                    </h2>
+
+                    <p>
+                        Em JavaScript podemos mostrar uma
+                        mensagem na tela utilizando:
+                    </p>
+
+
+                    <div class="code-container">
+
+                        <div class="code-header">
+
+                            <span>
+                                JavaScript
+                            </span>
+
+                            <button
+                                type="button"
+                                id="copy-code"
+                            >
+                                📋 Copiar
+                            </button>
+
+                        </div>
+
+
+                        <pre><code>console.log("Olá, mundo!");</code></pre>
+
+                    </div>
+
+
+                    <p class="code-explanation">
+
+                        Esse comando faz o computador exibir
+                        a mensagem <strong>"Olá, mundo!"</strong>
+                        no console.
+
+                    </p>
+
+                </section>
+
+
+
+                <!-- Resumo -->
+
+                <section class="lesson-summary">
+
+                    <span>
+                        📚
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            O que aprendemos?
+                        </h2>
+
+                        <ul>
+
+                            <li>
+                                Programar é criar instruções.
+                            </li>
+
+                            <li>
+                                Computadores seguem essas instruções.
+                            </li>
+
+                            <li>
+                                Existem diferentes linguagens
+                                de programação.
+                            </li>
+
+                            <li>
+                                JavaScript é uma das linguagens
+                                utilizadas para desenvolver sistemas.
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- Navegação -->
+
+                <div class="lesson-navigation">
+
+                    <a
+                        href="conteudo.html"
+                        class="lesson-nav-button secondary"
+                    >
+                        ← Voltar
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="lesson-nav-button primary"
+                    >
+                        Próxima aula →
+                    </a>
+
+                </div>
+
+
+            </article>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="lesson-footer">
+
+        <div class="footer-container">
+
+            <div>
+
+                <a
+                    href="index.html"
+                    class="logo"
+                >
+
+                    <span class="logo-icon">
+                        🎓
+                    </span>
+
+                    <span>
+                        Edu<span>Acessível</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Aprender é para todos.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Início
+                </a>
+
+                <a href="conteudo.html">
+                    Conteúdos
+                </a>
+
+                <a href="index.html#sobre">
+                    Sobre
+                </a>
+
+                <a href="index.html#acessibilidade">
+                    Acessibilidade
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 Edu Acessível · Projeto acadêmico
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /* =========================
+           AUMENTAR TEXTO
+           ========================= */
+
+        const increaseText =
+            document.getElementById("increase-text");
+
+        increaseText.addEventListener("click", () => {
+
+            document.body.classList.toggle("large-text");
+
+        });
+
+
+
+        /* =========================
+           ALTO CONTRASTE
+           ========================= */
+
+        const contrastButton =
+            document.getElementById("contrast-button");
+
+        contrastButton.addEventListener("click", () => {
+
+            document.body.classList.toggle("high-contrast");
+
+        });
+
+
+
+        /* =========================
+           LEITURA DO CONTEÚDO
+           ========================= */
+
+        const listenButton =
+            document.getElementById("listen-button");
+
+        listenButton.addEventListener("click", () => {
+
+            const content =
+                document.querySelector(".lesson-content");
+
+            const text =
+                content.innerText;
+
+            const speech =
+                new SpeechSynthesisUtterance(text);
+
+            speech.lang = "pt-BR";
+
+            speech.rate = 0.9;
+
+            window.speechSynthesis.cancel();
+
+            window.speechSynthesis.speak(speech);
+
+        });
+
+
+
+        /* =========================
+           COPIAR CÓDIGO
+           ========================= */
+
+        const copyCode =
+            document.getElementById("copy-code");
+
+        copyCode.addEventListener("click", async () => {
+
+            const code =
+                document.querySelector("code").innerText;
+
+            await navigator.clipboard.writeText(code);
+
+            copyCode.innerText = "✓ Copiado!";
+
+            setTimeout(() => {
+
+                copyCode.innerText = "📋 Copiar";
+
+            }, 2000);
+
+        });
+
+    </script>
+
+</body>
+
+</html>

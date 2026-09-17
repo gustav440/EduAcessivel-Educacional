@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Explore conteúdos acessíveis e adaptativos no Edu Acessível.">
+
+    <title>Conteúdos | Edu Acessível</title>
+
+
+<style>
+
+    /* =========================================================
+   HEADER — PÁGINA DE CONTEÚDOS
+   ========================================================= */
+
+.content-header {
+    width: 100%;
+    height: 98px;
+
+    background: var(--surface);
+
+    border-top: 3px solid #3b3040;
+    border-bottom: 1px solid var(--border);
+
+    position: relative;
+
+    z-index: 1000;
+}
+
+.header-container {
+    width: 100%;
+    max-width: 1200px;
+
+    height: 100%;
+
+    margin: 0 auto;
+
+    padding: 0 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   LOGO CENTRAL
+   ========================================================= */
+
+.content-logo {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    color: #1f2937;
+
+    line-height: 1;
+}
+
+.content-logo .logo-icon {
+    font-size: 34px;
+}
+
+.content-logo > span:last-child {
+    color: #1f2937;
+}
+
+.content-logo > span:last-child > span {
+    color: #5b5ce2;
+}
+
+
+/* =========================================================
+   SETA DE VOLTAR
+   ========================================================= */
+
+.content-header .back-home {
+    position: absolute;
+
+    left: 24px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #1f2937;
+
+    font-size: 32px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    border-radius: 50%;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.content-header .back-home:hover {
+    color: var(--primary);
+
+    background: rgba(91, 92, 226, 0.08);
+
+    transform: translateY(-50%) translateX(-3px);
+
+    box-shadow: none;
+
+    border-color: transparent;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .content-header {
+        height: 82px;
+    }
+
+    .content-logo {
+        font-size: 24px;
+
+        gap: 8px;
+    }
+
+    .content-logo .logo-icon {
+        font-size: 28px;
+    }
+
+    .content-header .back-home {
+        left: 12px;
+
+        width: 38px;
+        height: 38px;
+
+        font-size: 28px;
+    }
+
+}
+</style>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+
+    <header class="content-header">
+
+        <div class="header-container">
+
+            <!-- BOTÃO VOLTAR -->
+
+            <a href="index.html"
+               class="back-home"
+               aria-label="Voltar para a página inicial"
+               title="Voltar para o início">
+
+                ←
+
+            </a>
+
+
+            <!-- LOGO CENTRALIZADA -->
+
+            <a href="index.html"
+               class="logo content-logo"
+               aria-label="Edu Acessível - Página inicial">
+
+                <span class="logo-icon">🎓</span>
+
+                <span>
+                    Edu<span>Acessível</span>
+                </span>
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==================== HERO DA PÁGINA ==================== -->
+
+    <main>
+
+        <section class="content-hero">
+
+            <div class="container">
+
+                <span class="eyebrow">
+                    📚 APRENDA DO SEU JEITO
+                </span>
+
+                <h1>
+                    Explore nossos
+                    <span>conteúdos</span>
+                </h1>
+
+                <p>
+                    Encontre materiais educativos pensados para
+                    diferentes formas de aprender.
+                </p>
+
+
+                <!-- ==================== BARRA DE PESQUISA ==================== -->
+
+                <div class="content-search">
+
+                    <span aria-hidden="true">
+                        🔎
+                    </span>
+
+                    <input
+                        type="search"
+                        placeholder="O que você quer aprender?"
+                        aria-label="Pesquisar conteúdos"
+                    >
+
+                    <button type="button">
+                        Buscar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================== CONTEÚDOS ==================== -->
+
+        <section
+            id="conteudos"
+            class="content-section"
+            aria-labelledby="conteudos-title">
+
+            <div class="container">
+
+
+                <!-- CABEÇALHO -->
+
+                <div class="section-heading heading-row">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            DESTAQUES
+                        </span>
+
+                        <h2 id="conteudos-title">
+                            Conteúdos em destaque
+                        </h2>
+
+                        <p>
+                            Comece por um conteúdo e avance no seu ritmo.
+                        </p>
+
+                    </div>
+
+
+                    <a href="#" class="text-link">
+                        Ver todos →
+                    </a>
+
+                </div>
+
+
+                <!-- ==================== CARDS ==================== -->
+
+                <div class="content-grid">
+
+
+                    <!-- CARD 1 -->
+
+                    <article class="content-card">
+
+                        <div class="content-image programming">
+
+                            <span>💻</span>
+
+                            <span class="content-level">
+                                Iniciante
+                            </span>
+
+                        </div>
+
+
+                        <div class="content-body"> 
+
+    <span class="tag technology"> 
+        Tecnologia 
+    </span> 
+
+    <h3> 
+        Introdução à Programação 
+    </h3> 
+
+    <p> 
+        Comece a aprender lógica de programação 
+        de forma simples e acessível. 
+    </p> 
+
+    <div class="content-info"> 
+
+        <span> 
+            ⏱ 30 min 
+        </span> 
+
+        <span> 
+            📖 5 aulas 
+        </span> 
+
+    </div>
+
+    <a href="tec.html" class="content-button">
+        Começar
+        <span>→</span>
+    </a>
+
+</div>
+
+
+                            <a href="#" class="content-button">
+
+                                Acessar conteúdo
+
+                                <span>→</span>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CARD 2 -->
+
+                    <article class="content-card">
+
+                        <div class="content-image learning">
+
+                            <span>🧠</span>
+
+                            <span class="content-level">
+                                Iniciante
+                            </span>
+
+                        </div>
+
+
+                        <div class="content-body">
+
+                            <span class="tag learning-tag">
+                                Aprendizagem
+                            </span>
+
+                            <h3>
+                                Como estudar melhor
+                            </h3>
+
+                            <p>
+                                Descubra estratégias para melhorar
+                                sua rotina e aproveitar melhor seus estudos.
+                            </p>
+
+
+                            <div class="content-info">
+
+                                <span>
+                                    ⏱ 20 min
+                                </span>
+
+                                <span>
+                                    📖 4 aulas
+                                </span>
+
+                            </div>
+
+
+                            <a href="#" class="content-button">
+
+                                Acessar conteúdo
+
+                                <span>→</span>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CARD 3 -->
+
+                    <article class="content-card">
+
+                        <div class="content-image world">
+
+                            <span>🌎</span>
+
+                            <span class="content-level">
+                                Básico
+                            </span>
+
+                        </div>
+
+
+                        <div class="content-body">
+
+                            <span class="tag knowledge">
+                                Conhecimento
+                            </span>
+
+                            <h3>
+                                Conhecendo o mundo
+                            </h3>
+
+                            <p>
+                                Um conteúdo introdutório para ampliar
+                                seus conhecimentos sobre diferentes assuntos.
+                            </p>
+
+
+                            <div class="content-info">
+
+                                <span>
+                                    ⏱ 25 min
+                                </span>
+
+                                <span>
+                                    📖 6 aulas
+                                </span>
+
+                            </div>
+
+
+                            <a href="#" class="content-button">
+
+                                Acessar conteúdo
+
+                                <span>→</span>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================== FOOTER ==================== -->
+
+    <footer class="content-footer">
+
+        <div class="container footer-content">
+
+
+            <div>
+
+                <a href="index.html" class="logo">
+
+                    <span class="logo-icon">
+                        🎓
+                    </span>
+
+                    <span>
+                        Edu<span>Acessível</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Aprender é para todos.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Início
+                </a>
+
+                <a href="conteudo.html">
+                    Conteúdos
+                </a>
+
+                <a href="index.html#sobre">
+                    Sobre
+                </a>
+
+                <a href="index.html#acessibilidade">
+                    Acessibilidade
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 Edu Acessível · Projeto acadêmico
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
