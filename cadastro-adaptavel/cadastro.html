@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro — EduAcessível</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/cadastro-eduacessivel.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+  <!-- ===== TOPBAR ===== -->
+  <header class="topbar" role="banner">
+    <div class="marca">
+      <div class="selo" aria-hidden="true">EA</div>
+      <span>EduAcessível</span>
+    </div>
+
+    <nav aria-label="Ações" style="display:flex;align-items:center;gap:.75rem;">
+      <button class="btn-ajuda" id="btn-ajuda" aria-label="Abrir guia de cadastro">?</button>
+    </nav>
+  </header>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main id="conteudo-principal" tabindex="-1">
+    <div class="intro">
+      <h1>Criar sua conta</h1>
+      <p>Preencha as etapas abaixo. Suas preferências de acessibilidade são salvas automaticamente.</p>
+
+      <!-- Barra de progresso das etapas -->
+      <ol class="progresso" aria-label="Etapas do cadastro">
+        <li data-atual="true"  data-step="0">Identificação</li>
+        <li data-atual="false" data-step="1">Necessidades</li>
+        <li data-atual="false" data-step="2">Preferências</li>
+        <li data-atual="false" data-step="3">Revisão</li>
+      </ol>
+    </div>
+
+    <!-- Mensagens de status acessíveis -->
+    <div role="status" aria-live="polite" aria-atomic="true" id="status-msg"
+         style="clip:rect(0,0,0,0);position:absolute;width:1px;height:1px;overflow:hidden;"></div>
+
+    <form id="form-cadastro" novalidate aria-label="Formulário de cadastro em 4 etapas">
+
+      <!-- ===== STEP 0 — Identificação ===== -->
+      <section class="step ativo" id="step-0" aria-labelledby="titulo-step-0" data-step="0">
+        <h2 id="titulo-step-0">Identificação</h2>
+
+        <div class="campo" id="campo-nome">
+          <label for="nome">Nome completo</label>
+          <p class="dica" id="dica-nome">Como você gostaria de ser chamado na plataforma.</p>
+          <input type="text" id="nome" name="nome" autocomplete="name"
+                 aria-describedby="dica-nome erro-nome" required />
+          <span class="erro-campo" id="erro-nome" role="alert">Por favor, informe seu nome.</span>
+        </div>
+
+        <div class="campo" id="campo-email">
+          <label for="email">E-mail</label>
+          <p class="dica" id="dica-email">Será usado para acessar sua conta.</p>
+          <input type="email" id="email" name="email" autocomplete="email"
+                 aria-describedby="dica-email erro-email" required />
+          <span class="erro-campo" id="erro-email" role="alert">Informe um e-mail válido.</span>
+        </div>
+
+        <div class="campo" id="campo-senha">
+          <label for="senha">Senha</label>
+          <p class="dica" id="dica-senha">Mínimo de 8 caracteres, com letras e números.</p>
+          <input type="password" id="senha" name="senha" autocomplete="new-password"
+                 aria-describedby="dica-senha erro-senha" required minlength="8" />
+          <span class="erro-campo" id="erro-senha" role="alert">A senha deve ter pelo menos 8 caracteres.</span>
+        </div>
+
+        <div class="campo" id="campo-nascimento">
+          <label for="nascimento">Data de nascimento</label>
+          <input type="date" id="nascimento" name="nascimento" autocomplete="bday"
+                 aria-describedby="erro-nascimento" required />
+          <span class="erro-campo" id="erro-nascimento" role="alert">Informe sua data de nascimento.</span>
+        </div>
+
+        <div class="nav-botoes">
+          <a href="login.html" class="btn-secundario"
+             style="font-family:var(--font-body);font-weight:700;font-size:.95rem;padding:.7rem 1.3rem;
+                    border-radius:999px;border:1px solid var(--primary);color:var(--primary);
+                    text-decoration:none;display:inline-flex;align-items:center;">
+            ← Voltar ao login
+          </a>
+          <button type="button" class="btn-primario" id="btn-prox-0">Próximo →</button>
+        </div>
+      </section>
+
+      <!-- ===== STEP 1 — Necessidades de acessibilidade ===== -->
+      <section class="step" id="step-1" aria-labelledby="titulo-step-1" data-step="1" hidden>
+        <h2 id="titulo-step-1">Necessidades de acessibilidade</h2>
+        <p>Selecione o que se aplica a você. Isso personaliza os recursos exibidos nos cursos.</p>
+
+        <fieldset>
+          <legend>Quais recursos você utiliza ou prefere?</legend>
+          <div class="grade-checks">
+
+            <label class="opcao">
+              <input type="checkbox" name="necessidades" value="transcricao" />
+              <div>
+                <strong>Transcrição de áudio</strong>
+                <span class="desc">Texto escrito do conteúdo falado nos vídeos.</span>
+              </div>
+            </label>
+
+            <label class="opcao">
+              <input type="checkbox" name="necessidades" value="audiodescricao" />
+              <div>
+                <strong>Audiodescrição</strong>
+                <span class="desc">Narração descritiva de imagens e gráficos.</span>
+              </div>
+            </label>
+
+            <label class="opcao">
+              <input type="checkbox" name="necessidades" value="libras" />
+              <div>
+                <strong>Libras</strong>
+                <span class="desc">Janela de intérprete de Língua Brasileira de Sinais.</span>
+              </div>
+            </label>
+
+            <label class="opcao">
+              <input type="checkbox" name="necessidades" value="legenda" />
+              <div>
+                <strong>Legendas</strong>
+                <span class="desc">Legendas em vídeos e apresentações.</span>
+              </div>
+            </label>
+
+            <label class="opcao">
+              <input type="checkbox" name="necessidades" value="leitura-facil" />
+              <div>
+                <strong>Leitura fácil</strong>
+                <span class="desc">Textos simplificados e com linguagem direta.</span>
+              </div>
+            </label>
+
+            <label class="opcao">
+              <input type="checkbox" name="necessidades" value="alto-contraste" />
+              <div>
+                <strong>Alto contraste</strong>
+                <span class="desc">Interface com cores de alto contraste visual.</span>
+              </div>
+            </label>
+
+          </div>
+        </fieldset>
+
+        <div id="aviso-necessidades" class="aviso-sugestao" aria-live="polite" hidden>
+          💡 Com base nas suas escolhas, ativamos alguns ajustes automáticos para você.
+        </div>
+
+        <div class="nav-botoes">
+          <button type="button" class="btn-secundario" id="btn-ant-1">← Anterior</button>
+          <button type="button" class="btn-primario"  id="btn-prox-1">Próximo →</button>
+        </div>
+      </section>
+
+      <!-- ===== STEP 2 — Preferências visuais/leitura ===== -->
+      <section class="step" id="step-2" aria-labelledby="titulo-step-2" data-step="2" hidden>
+        <h2 id="titulo-step-2">Preferências de leitura</h2>
+        <p>Ajuste como o conteúdo é apresentado. Você pode mudar isso a qualquer momento.</p>
+
+        <div class="toolbar-prefs">
+          <div class="campo">
+            <label for="pref-tema">Tema de cores</label>
+            <select id="pref-tema">
+              <option value="padrao">Padrão (claro)</option>
+              <option value="noturno">Noturno</option>
+              <option value="contraste">Alto contraste</option>
+              <option value="cinza">Escala de cinza</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="pref-fonte">Família de fonte</label>
+            <select id="pref-fonte">
+              <option value="padrao">Atkinson Hyperlegible</option>
+              <option value="lexend">Lexend (dislexia)</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="pref-tamanho">Tamanho do texto — <span class="valor-slider" id="val-tamanho">16px</span></label>
+            <input type="range" id="pref-tamanho" min="14" max="24" step="1" value="16"
+                   aria-valuemin="14" aria-valuemax="24" aria-valuenow="16" />
+          </div>
+
+          <div class="campo">
+            <label for="pref-espacamento">Espaçamento entre linhas — <span class="valor-slider" id="val-espacamento">1.6</span></label>
+            <input type="range" id="pref-espacamento" min="1.2" max="2.4" step="0.1" value="1.6"
+                   aria-valuemin="1.2" aria-valuemax="2.4" aria-valuenow="1.6" />
+          </div>
+        </div>
+
+        <!-- Prévia de texto -->
+        <div class="previa" aria-label="Prévia do texto com suas configurações">
+          <h3>Prévia do texto</h3>
+          <p class="previa-texto" id="previa-texto">
+            Este é um exemplo de como o conteúdo dos cursos será exibido para você.
+            Ajuste as preferências acima e veja o resultado aqui em tempo real.
+          </p>
+        </div>
+
+        <!-- Preferência de formato -->
+        <fieldset style="margin-top:1.5rem;">
+          <legend>Formato preferido de conteúdo</legend>
+          <div class="radios">
+            <label><input type="radio" name="formato" value="video" /> <span>Vídeo</span></label>
+            <label><input type="radio" name="formato" value="texto" checked /> <span>Texto</span></label>
+            <label><input type="radio" name="formato" value="podcast" /> <span>Podcast / Áudio</span></label>
+            <label><input type="radio" name="formato" value="interativo" /> <span>Interativo</span></label>
+          </div>
+        </fieldset>
+
+        <div class="nav-botoes">
+          <button type="button" class="btn-secundario" id="btn-ant-2">← Anterior</button>
+          <button type="button" class="btn-primario"  id="btn-prox-2">Próximo →</button>
+        </div>
+      </section>
+
+      <!-- ===== STEP 3 — Revisão e envio ===== -->
+      <section class="step" id="step-3" aria-labelledby="titulo-step-3" data-step="3" hidden>
+        <h2 id="titulo-step-3">Revisão dos dados</h2>
+        <p>Confira as informações antes de criar sua conta.</p>
+
+        <ul class="resumo-lista" id="resumo-lista" aria-label="Resumo dos dados informados">
+          <!-- preenchido pelo cadastro.js -->
+        </ul>
+
+        <details style="margin-bottom:1rem;">
+          <summary style="cursor:pointer;font-size:.85rem;color:var(--ink-soft);">Ver dados completos (JSON)</summary>
+          <pre class="json-previa" id="json-previa" aria-label="Dados em formato JSON"></pre>
+        </details>
+
+        <div class="termos">
+          <input type="checkbox" id="aceite-termos" name="aceite-termos" required
+                 aria-describedby="erro-termos" />
+          <label for="aceite-termos" style="font-weight:normal;">
+            Li e aceito os
+            <a href="#" style="color:var(--primary);">Termos de Uso</a>
+            e a
+            <a href="#" style="color:var(--primary);">Política de Privacidade</a>.
+          </label>
+        </div>
+        <span class="erro-campo" id="erro-termos" role="alert">Você precisa aceitar os termos para continuar.</span>
+
+        <div class="nav-botoes">
+          <button type="button" class="btn-secundario" id="btn-ant-3">← Anterior</button>
+          <button type="submit" class="btn-primario"   id="btn-enviar">Criar conta ✓</button>
+        </div>
+      </section>
+
+    </form>
+
+    <!-- ===== TELA DE SUCESSO ===== -->
+    <div id="tela-sucesso" hidden aria-live="assertive">
+      <div class="sucesso">
+        <div class="selo-check" aria-hidden="true">✓</div>
+        <h2>Conta criada com sucesso!</h2>
+        <p id="msg-boas-vindas">Bem-vindo ao EduAcessível. Suas preferências foram salvas.</p>
+        <a href="index.html" class="btn-primario"
+           style="display:inline-block;margin-top:1rem;text-decoration:none;
+                  font-family:var(--font-body);font-weight:700;font-size:.95rem;
+                  padding:.7rem 1.3rem;border-radius:999px;">
+          Ir para o Hub de Cursos →
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/comum.js"></script>
+  <script src="js/cadastro.js"></script>
+</body>
+</html>
