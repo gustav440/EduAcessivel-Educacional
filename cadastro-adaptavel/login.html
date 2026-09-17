@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — EduAcessível</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/cadastro-eduacessivel.css" />
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+  <!-- ===== TOPBAR ===== -->
+  <header class="topbar" role="banner">
+    <div class="marca">
+      <div class="selo" aria-hidden="true">EA</div>
+      <span>EduAcessível</span>
+    </div>
+  </header>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main id="conteudo-principal" tabindex="-1" class="login-main">
+
+    <div class="login-card" role="region" aria-labelledby="titulo-login">
+
+      <!-- Cabeçalho -->
+      <div class="login-header">
+        <div class="login-avatar" aria-hidden="true">EA</div>
+        <h1 id="titulo-login">Entrar na sua conta</h1>
+        <p>Bem-vindo de volta! Acesse com seu e-mail e senha.</p>
+      </div>
+
+      <!-- Mensagem de erro geral -->
+      <div id="msg-erro-login" class="login-alerta" role="alert" aria-live="assertive" hidden>
+        E-mail ou senha incorretos. Tente novamente.
+      </div>
+
+      <!-- Formulário -->
+      <form id="form-login" novalidate aria-label="Formulário de login">
+
+        <div class="campo" id="campo-login-email">
+          <label for="login-email">E-mail</label>
+          <input type="email" id="login-email" name="email"
+                 autocomplete="email"
+                 aria-describedby="erro-login-email"
+                 required
+                 placeholder="seuemail@exemplo.com" />
+          <span class="erro-campo" id="erro-login-email" role="alert">
+            Informe um e-mail válido.
+          </span>
+        </div>
+
+        <div class="campo" id="campo-login-senha">
+          <label for="login-senha">Senha</label>
+          <div class="input-senha-wrapper">
+            <input type="password" id="login-senha" name="senha"
+                   autocomplete="current-password"
+                   aria-describedby="erro-login-senha"
+                   required
+                   placeholder="••••••••" />
+            <button type="button" class="btn-mostrar-senha" id="btn-mostrar-senha"
+                    aria-label="Mostrar senha" aria-pressed="false">
+              👁
+            </button>
+          </div>
+          <span class="erro-campo" id="erro-login-senha" role="alert">
+            Informe sua senha.
+          </span>
+        </div>
+
+        <div class="login-opcoes">
+          <label class="login-lembrar">
+            <input type="checkbox" id="lembrar" name="lembrar" />
+            <span>Lembrar de mim</span>
+          </label>
+          <a href="#" class="login-esqueci">Esqueci minha senha</a>
+        </div>
+
+        <!-- Status para leitores de tela -->
+        <div id="status-login" role="status" aria-live="polite"
+             style="clip:rect(0,0,0,0);position:absolute;width:1px;height:1px;overflow:hidden;"></div>
+
+        <button type="submit" class="btn-primario btn-login" id="btn-entrar">
+          Entrar
+        </button>
+
+      </form>
+
+      <p class="login-rodape">
+        Não tem conta?
+        <a href="cadastro.html">Criar conta gratuita</a>
+      </p>
+
+    </div>
+
+  </main>
+
+  <!-- Botão flutuante de configurações -->
+  <button class="cfg-btn" id="cfg-btn"
+          aria-label="Abrir configurações de acessibilidade"
+          aria-expanded="false"
+          aria-controls="cfg-gaveta">⚙</button>
+
+  <script src="js/comum.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      const form        = document.getElementById('form-login');
+      const statusEl    = document.getElementById('status-login');
+      const msgErroEl   = document.getElementById('msg-erro-login');
+      const btnEntrar   = document.getElementById('btn-entrar');
+      const btnMostrar  = document.getElementById('btn-mostrar-senha');
+      const inputSenha  = document.getElementById('login-senha');
+
+      /* ----- Mostrar / ocultar senha ----- */
+      btnMostrar.addEventListener('click', () => {
+        const visivel = inputSenha.type === 'text';
+        inputSenha.type = visivel ? 'password' : 'text';
+        btnMostrar.setAttribute('aria-pressed', String(!visivel));
+        btnMostrar.setAttribute('aria-label', visivel ? 'Mostrar senha' : 'Ocultar senha');
+      });
+
+      /* ----- Validação ----- */
+      function limparErros() {
+        document.getElementById('campo-login-email').classList.remove('tem-erro');
+        document.getElementById('campo-login-senha').classList.remove('tem-erro');
+        msgErroEl.hidden = true;
+      }
+
+      function anunciar(msg) {
+        statusEl.textContent = '';
+        setTimeout(() => { statusEl.textContent = msg; }, 50);
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        limparErros();
+
+        const email = document.getElementById('login-email').value.trim();
+        const senha = document.getElementById('login-senha').value;
+        let ok = true;
+
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          document.getElementById('campo-login-email').classList.add('tem-erro');
+          ok = false;
+        }
+        if (!senha) {
+          document.getElementById('campo-login-senha').classList.add('tem-erro');
+          if (ok) document.getElementById('login-senha').focus();
+          ok = false;
+        }
+        if (!ok) { anunciar('Corrija os campos indicados.'); return; }
+
+        /* Simula autenticação */
+        btnEntrar.disabled = true;
+        btnEntrar.textContent = 'Entrando…';
+        anunciar('Verificando credenciais…');
+
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1000);
+      });
+
+    })();
+  </script>
+</body>
+</html>
