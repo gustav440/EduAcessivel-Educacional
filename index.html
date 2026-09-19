@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Edu Acessível - Plataforma de aprendizagem acessível e adaptativa.">
+    <title>Edu Acessível | Aprender é para todos</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    
+    <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+    <header class="header">
+        <nav class="navbar container" aria-label="Navegação principal">
+            <a href="#" class="logo" aria-label="Edu Acessível - Página inicial">
+                <span class="logo-icon">🎓</span>
+                <span>Edu<span>Acessível</span></span>
+            </a>
+
+            <button class="menu-toggle"
+                    type="button"
+                    aria-label="Abrir menu"
+                    aria-expanded="false">
+                ☰
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="conteudo.html">Conteúdos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#acessibilidade">Acessibilidade</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="#" class="btn btn-outline">Entrar</a>
+                <a href="#" class="btn btn-primary">Cadastrar</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+
+        <!-- ==================== HERO ==================== -->
+        <section id="inicio" class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <span class="eyebrow">EDUCAÇÃO • INCLUSÃO • ACESSIBILIDADE</span>
+
+                    <h1>
+                        Aprender deve ser
+                        <span>para todos.</span>
+                    </h1>
+
+                    <p>
+                        Uma plataforma de aprendizagem acessível e adaptativa,
+                        pensada para diferentes formas de aprender.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#conteudos" class="btn btn-primary btn-large">
+                            Explorar conteúdos
+                        </a>
+
+                        <a href="#sobre" class="btn btn-outline btn-large">
+                            Conheça o projeto
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-illustration" aria-hidden="true">
+                    <div class="illustration-card">
+                        <span>📚</span>
+                        <strong>Educação acessível</strong>
+                        <small>Aprenda do seu jeito.</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== BUSCA ==================== -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-box">
+                    <label for="search">O que você quer aprender?</label>
+
+                    <div class="search-input-wrapper">
+                        <span aria-hidden="true">🔎</span>
+                        <input
+                            type="search"
+                            id="search"
+                            placeholder="Buscar cursos, atividades, vídeos..."
+                            autocomplete="off"
+                        >
+                        <button type="button" class="btn btn-primary" id="search-button">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CATEGORIAS ==================== -->
+        <section class="section" aria-labelledby="categorias-title">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">EXPLORE</span>
+                    <h2 id="categorias-title">Encontre o que precisa</h2>
+                    <p>Escolha uma categoria para começar.</p>
+                </div>
+
+                <div class="category-grid">
+                    <a href="#" class="category-card">
+                        <span class="category-icon">📚</span>
+                        <h3>Cursos</h3>
+                        <p>Conteúdos organizados para você aprender.</p>
+                    </a>
+
+                    <a href="#" class="category-card">
+                        <span class="category-icon">📝</span>
+                        <h3>Atividades</h3>
+                        <p>Pratique e acompanhe sua evolução.</p>
+                    </a>
+
+                    <a href="#" class="category-card">
+                        <span class="category-icon">🎥</span>
+                        <h3>Vídeos</h3>
+                        <p>Aprenda através de conteúdos visuais.</p>
+                    </a>
+
+                    <a href="#" class="category-card">
+                        <span class="category-icon">🎧</span>
+                        <h3>Áudios</h3>
+                        <p>Conteúdos para ouvir e aprender.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- ==================== SOBRE ==================== -->
+        <section id="sobre" class="section" aria-labelledby="sobre-title">
+            <div class="container about-grid">
+                <div>
+                    <span class="eyebrow">SOBRE O PROJETO</span>
+                    <h2 id="sobre-title">Tecnologia para tornar a educação mais inclusiva.</h2>
+                </div>
+
+                <div>
+                    <p>
+                        O Edu Acessível é uma plataforma pensada para facilitar
+                        o acesso à educação por meio de recursos de acessibilidade
+                        e experiências de aprendizagem adaptativas.
+                    </p>
+
+                    <p>
+                        A proposta é oferecer diferentes formas de consumir
+                        conteúdos, respeitando as necessidades e preferências
+                        de cada pessoa.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ACESSIBILIDADE ==================== -->
+        <section id="acessibilidade" class="section accessibility-section"
+                 aria-labelledby="accessibility-title">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">ACESSIBILIDADE</span>
+                    <h2 id="accessibility-title">A plataforma se adapta a você.</h2>
+                    <p>
+                        Recursos que ajudam diferentes pessoas a navegar e aprender.
+                    </p>
+                </div>
+
+                <div class="accessibility-grid">
+                    <div class="accessibility-card">
+                        <span>🔊</span>
+                        <h3>Leitura de conteúdo</h3>
+                        <p>Recursos para facilitar o acesso ao texto.</p>
+                    </div>
+
+                    <div class="accessibility-card">
+                        <span>🔤</span>
+                        <h3>Tamanho da fonte</h3>
+                        <p>Aumente ou diminua o tamanho do texto.</p>
+                    </div>
+
+                    <div class="accessibility-card">
+                        <span>🎨</span>
+                        <h3>Alto contraste</h3>
+                        <p>Melhore a visualização dos elementos.</p>
+                    </div>
+
+                    <div class="accessibility-card">
+                        <span>⌨️</span>
+                        <h3>Navegação por teclado</h3>
+                        <p>Navegue sem depender do mouse.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== PAINEL DE ACESSIBILIDADE ==================== -->
+    <aside class="accessibility-panel" id="accessibility-panel"
+           aria-label="Painel de acessibilidade">
+
+        <button
+            class="accessibility-toggle"
+            id="accessibility-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="accessibility-options">
+            ♿
+            <span>Acessibilidade</span>
+        </button>
+
+        <div id="accessibility-options" class="accessibility-options" hidden>
+            <h2>Opções de acessibilidade</h2>
+
+            <button type="button" id="increase-font">
+                🔤 Aumentar fonte
+            </button>
+
+            <button type="button" id="decrease-font">
+                🔡 Diminuir fonte
+            </button>
+
+            <button type="button" id="high-contrast">
+                🎨 Alto contraste
+            </button>
+
+            <button type="button" id="grayscale">
+                ◐ Escala de cinza
+            </button>
+
+            <button type="button" id="reset-accessibility">
+                ↩ Restaurar padrão
+            </button>
+        </div>
+    </aside>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div>
+                <a href="#" class="logo">
+                    <span class="logo-icon">🎓</span>
+                    <span>Edu<span>Acessível</span></span>
+                </a>
+
+                <p>Aprender é para todos.</p>
+            </div>
+
+            <div class="footer-links">
+                <a href="#inicio">Início</a>
+                <a href="#conteudos">Conteúdos</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#acessibilidade">Acessibilidade</a>
+            </div>
+        </div>
+
+        <div class="container copyright">
+            © 2026 Edu Acessível. Projeto acadêmico.
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
