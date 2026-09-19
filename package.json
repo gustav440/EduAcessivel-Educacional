@@ -1,0 +1,24 @@
+{
+  "name": "eduacessivel-educacional-main",
+  "version": "1.0.0",
+  "description": "Plataforma de aprendizagem acessível e adaptativa, pensada para diferentes formas de aprender.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llauravittorino/EduAcessivel-Educacional.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/llauravittorino/EduAcessivel-Educacional/issues"
+  },
+  "homepage": "https://github.com/llauravittorino/EduAcessivel-Educacional#readme",
+  "dependencies": {
+    "openai": "^7.19.0"
+  }
+}
