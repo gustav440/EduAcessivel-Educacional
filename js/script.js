@@ -119,3 +119,89 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
         menuToggle?.setAttribute("aria-expanded", "false");
     });
 });
+// =========================================================
+// ASSISTENTE DE IA — EDU ACESSÍVEL
+// =========================================================
+
+async function enviarMensagemParaIA(mensagem) {
+    try {
+        const resposta = await fetch("/api/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                mensagem: mensagem
+            })
+        });
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            throw new Error(dados.erro || "Erro ao conversar com a IA.");
+        }
+
+        return dados.resposta;
+
+    } catch (erro) {
+        console.error("Erro na IA:", erro);
+        return "Desculpe, não consegui responder agora. Tente novamente.";
+    }
+}
+// =========================================================
+// CONTROLE DO CHAT DA IA
+// =========================================================
+
+const aiButton = document.querySelector("#ai-button");
+const aiChat = document.querySelector("#ai-chat");
+const aiClose = document.querySelector("#ai-close");
+const aiInput = document.querySelector("#ai-input");
+const aiSend = document.querySelector("#ai-send");
+const aiMessages = document.querySelector("#ai-messages");
+
+// Abrir o chat
+aiButton?.addEventListener("click", () => {
+    aiChat.hidden = false;
+    aiInput.focus();
+});
+
+// Fechar o chat
+aiClose?.addEventListener("click", () => {
+    aiChat.hidden = true;
+});
+
+// Enviar mensagem
+aiSend?.addEventListener("click", async () => {
+    const mensagem = aiInput.value.trim();
+
+    if (!mensagem) {
+        aiInput.focus();
+        return;
+    }
+
+    // Mostra a mensagem do usuário
+    const mensagemUsuario = document.createElement("div");
+    mensagemUsuario.className = "user-message";
+    mensagemUsuario.textContent = mensagem;
+
+    aiMessages.appendChild(mensagemUsuario);
+
+    // Limpa o campo
+    aiInput.value = "";
+
+    // Mostra mensagem temporária
+    const mensagemCarregando = document.createElement("div");
+    mensagemCarregando.className = "ai-message";
+    mensagemCarregando.textContent = "Pensando...";
+
+    aiMessages.appendChild(mensagemCarregando);
+
+    // Envia para a IA
+    const resposta = await enviarMensagemParaIA(mensagem);
+
+    // Substitui "Pensando..." pela resposta
+    mensagemCarregando.textContent = resposta;
+
+    // Mantém o campo pronto para outra pergunta
+    aiInput.focus();
+});
