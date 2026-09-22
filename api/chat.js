@@ -1,4 +1,3 @@
-javascript
 export async function POST(request) {
     try {
         const { mensagem } = await request.json();
