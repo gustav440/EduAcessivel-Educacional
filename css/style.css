@@ -871,3 +871,6 @@ button {
         font-size: 27px;
     }
 }
+#ai-chat[hidden] {
+    display: none;
+}
