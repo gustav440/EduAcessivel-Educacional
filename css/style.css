@@ -656,3 +656,218 @@ button {
         display: none;
     }
 }
+
+
+/* =========================================================
+   ASSISTENTE DE IA — EDU ACESSÍVEL
+   ========================================================= */
+
+#ai-assistant {
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    z-index: 3000;
+}
+
+/* Botão do boneco */
+#ai-button {
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#ai-mascot-image {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    display: block;
+}
+
+#ai-button:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+}
+
+/* Janela do chat */
+#ai-chat {
+    position: absolute;
+    right: 0;
+    bottom: 72px;
+
+    width: 360px;
+    max-width: calc(100vw - 30px);
+    height: 500px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.20);
+    overflow: hidden;
+}
+
+/* Cabeçalho */
+.ai-header {
+    min-height: 60px;
+    padding: 0 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: var(--primary);
+    color: white;
+}
+
+.ai-header strong {
+    font-size: 16px;
+}
+
+#ai-close {
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: transparent;
+    color: white;
+
+    font-size: 26px;
+    line-height: 1;
+}
+
+#ai-close:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Área das mensagens */
+#ai-messages {
+    flex: 1;
+
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    overflow-y: auto;
+
+    background: var(--background);
+}
+
+/* Mensagem da IA */
+.ai-message {
+    align-self: flex-start;
+
+    max-width: 85%;
+    padding: 10px 13px;
+
+    border-radius: 12px 12px 12px 4px;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+
+    color: var(--text);
+
+    line-height: 1.4;
+}
+
+/* Mensagem do usuário */
+.user-message {
+    align-self: flex-end;
+
+    max-width: 85%;
+    padding: 10px 13px;
+
+    border-radius: 12px 12px 4px 12px;
+
+    background: var(--primary);
+    color: white;
+
+    line-height: 1.4;
+}
+
+/* Área de digitação */
+.ai-input-area {
+    display: flex;
+    gap: 8px;
+
+    padding: 12px;
+
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+}
+
+#ai-input {
+    flex: 1;
+    min-width: 0;
+
+    height: 44px;
+    padding: 0 12px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: var(--surface);
+    color: var(--text);
+}
+
+#ai-input:focus {
+    border-color: var(--primary);
+    outline: 2px solid rgba(91, 92, 226, 0.20);
+}
+
+#ai-send {
+    height: 44px;
+
+    padding: 0 15px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: var(--primary);
+    color: white;
+
+    font-weight: 700;
+}
+
+#ai-send:hover {
+    background: var(--primary-dark);
+}
+
+/* =========================================================
+   IA NO CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    #ai-assistant {
+        right: 12px;
+        bottom: 75px;
+    }
+
+    #ai-chat {
+        right: 0;
+        bottom: 70px;
+
+        width: calc(100vw - 24px);
+        height: 70vh;
+        max-height: 520px;
+    }
+
+    #ai-button {
+        width: 56px;
+        height: 56px;
+        font-size: 27px;
+    }
+}
