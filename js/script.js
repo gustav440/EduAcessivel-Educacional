@@ -219,7 +219,7 @@ aiSend?.addEventListener("click", async () => {
     // Mostra mensagem temporária
     const mensagemCarregando = document.createElement("div");
     mensagemCarregando.className = "ai-message";
-    mensagemCarregando.textContent = "Pensando...";
+    mensagemCarregando.textContent = "Digitando...";
 
     aiMessages.appendChild(mensagemCarregando);
 
