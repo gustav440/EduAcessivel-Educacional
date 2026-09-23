@@ -159,6 +159,33 @@ const aiInput = document.querySelector("#ai-input");
 const aiSend = document.querySelector("#ai-send");
 const aiMessages = document.querySelector("#ai-messages");
 
+const aiMascotImage = document.querySelector("#ai-mascot-image");
+
+let mascoteInterval = null;
+
+function iniciarMascoteFalando() {
+    console.log("MASCOTE COMEÇOU A FALAR");
+    if (!aiMascotImage) return;
+
+    let aberto = false;
+
+    mascoteInterval = setInterval(() => {
+        aberto = !aberto;
+
+        aiMascotImage.src = aberto
+            ? "imagens/mascote-aberto.jpeg"
+            : "imagens/mascote-fechado.jpeg";
+    }, 350);
+}
+
+function pararMascoteFalando() {
+    clearInterval(mascoteInterval);
+    mascoteInterval = null;
+
+    if (aiMascotImage) {
+        aiMascotImage.src = "imagens/mascote-fechado.jpeg";
+    }
+}
 // Abrir o chat
 aiButton?.addEventListener("click", () => {
     aiChat.hidden = false;
@@ -197,11 +224,14 @@ aiSend?.addEventListener("click", async () => {
     aiMessages.appendChild(mensagemCarregando);
 
     // Envia para a IA
+iniciarMascoteFalando();
+
+try {
     const resposta = await enviarMensagemParaIA(mensagem);
-
-    // Substitui "Pensando..." pela resposta
     mensagemCarregando.textContent = resposta;
+} finally {
+    pararMascoteFalando();
+}
 
-    // Mantém o campo pronto para outra pergunta
-    aiInput.focus();
+aiInput.focus();
 });
