@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hub de Cursos — EduAcessível</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/cadastro-eduacessivel.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <a href="../index.html" class="btn-voltar">← Voltar para a tela inicial</a>
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+  <!-- ===== TOPBAR ===== -->
+  <header class="topbar" role="banner">
+    <div class="marca">
+      <div class="selo" aria-hidden="true">EA</div>
+      <span>EduAcessível</span>
+    </div>
+
+    <nav aria-label="Navegação principal" style="display:flex;align-items:center;gap:1rem;">
+      <button class="btn-ajuda" id="btn-ajuda" aria-label="Abrir guia de navegação">?</button>
+      <a href="login.html" style="font-size:.85rem; color:var(--ink-soft); text-decoration:none;">Sair</a>
+    </nav>
+  </header>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main id="conteudo-principal" tabindex="-1">
+    <section id="hub-cursos" aria-labelledby="titulo-hub">
+
+      <div class="hub-cabecalho">
+        <div>
+          <h1 id="titulo-hub">Seus cursos</h1>
+          <p>Explore os materiais disponíveis e filtre pelos recursos de acessibilidade que preferir.</p>
+        </div>
+        <a href="cadastro.html"
+           style="font-family:var(--font-body);font-weight:700;font-size:.9rem;padding:.6rem 1.2rem;
+                  border-radius:999px;background:var(--primary);color:var(--primary-ink);
+                  text-decoration:none;white-space:nowrap;">
+          + Novo cadastro
+        </a>
+      </div>
+
+      <!-- Filtros -->
+      <div class="hub-filtros" data-tour="hub-filtros" aria-label="Filtrar cursos por recurso de acessibilidade" role="group">
+        <button class="filtro-chip" aria-pressed="false">Transcrição</button>
+        <button class="filtro-chip" aria-pressed="false">Áudio descritivo</button>
+        <button class="filtro-chip" aria-pressed="false">Libras</button>
+        <button class="filtro-chip" aria-pressed="false">Legenda</button>
+        <button class="filtro-chip" aria-pressed="false">Leitura fácil</button>
+      </div>
+
+      <!-- Grade de cards -->
+      <div class="grade-cursos" data-tour="hub-cards" aria-label="Lista de cursos">
+
+        <article class="card-curso" aria-label="Introdução à Programação">
+          <h3>Introdução à Programação</h3>
+          <p style="font-size:.85rem;margin:.25rem 0 0;">⏱ 45 min de leitura</p>
+          <div class="tags-acessibilidade" aria-label="Recursos de acessibilidade disponíveis">
+            <span class="tag-acessibilidade">Transcrição</span>
+            <span class="tag-acessibilidade">Legenda</span>
+          </div>
+        </article>
+
+        <article class="card-curso" aria-label="Matemática Aplicada">
+          <h3>Matemática Aplicada</h3>
+          <p style="font-size:.85rem;margin:.25rem 0 0;">⏱ 1h 20 min de leitura</p>
+          <div class="tags-acessibilidade" aria-label="Recursos de acessibilidade disponíveis">
+            <span class="tag-acessibilidade">Áudio descritivo</span>
+            <span class="tag-acessibilidade">Leitura fácil</span>
+          </div>
+        </article>
+
+        <article class="card-curso" aria-label="Comunicação e Linguagem">
+          <h3>Comunicação e Linguagem</h3>
+          <p style="font-size:.85rem;margin:.25rem 0 0;">⏱ 30 min de leitura</p>
+          <div class="tags-acessibilidade" aria-label="Recursos de acessibilidade disponíveis">
+            <span class="tag-acessibilidade">Libras</span>
+            <span class="tag-acessibilidade">Transcrição</span>
+            <span class="tag-acessibilidade">Legenda</span>
+          </div>
+        </article>
+
+        <article class="card-curso" aria-label="Ciências da Natureza">
+          <h3>Ciências da Natureza</h3>
+          <p style="font-size:.85rem;margin:.25rem 0 0;">⏱ 55 min de leitura</p>
+          <div class="tags-acessibilidade" aria-label="Recursos de acessibilidade disponíveis">
+            <span class="tag-acessibilidade">Áudio descritivo</span>
+          </div>
+        </article>
+
+        <article class="card-curso" aria-label="História e Cultura">
+          <h3>História e Cultura</h3>
+          <p style="font-size:.85rem;margin:.25rem 0 0;">⏱ 40 min de leitura</p>
+          <div class="tags-acessibilidade" aria-label="Recursos de acessibilidade disponíveis">
+            <span class="tag-acessibilidade">Leitura fácil</span>
+            <span class="tag-acessibilidade">Legenda</span>
+          </div>
+        </article>
+
+        <article class="card-curso" aria-label="Arte e Criatividade">
+          <h3>Arte e Criatividade</h3>
+          <p style="font-size:.85rem;margin:.25rem 0 0;">⏱ 25 min de leitura</p>
+          <div class="tags-acessibilidade" aria-label="Recursos de acessibilidade disponíveis">
+            <span class="tag-acessibilidade">Libras</span>
+            <span class="tag-acessibilidade">Áudio descritivo</span>
+            <span class="tag-acessibilidade">Transcrição</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <button class="cfg-btn" id="cfg-btn" aria-label="Abrir configurações de acessibilidade" aria-expanded="false" aria-controls="cfg-gaveta">⚙</button>
+
+  <script src="js/comum.js"></script>
+  <script src="js/hub.js"></script>
+</body>
+</html>

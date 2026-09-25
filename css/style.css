@@ -874,3 +874,13 @@ button {
 #ai-chat[hidden] {
     display: none;
 }
+.btn-voltar {
+    display: inline-block;
+    margin: 20px;
+    padding: 10px 18px;
+    background-color: var(--primary);
+    color: var(--primary-ink);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
