@@ -666,7 +666,7 @@ button {
     position: fixed;
     right: 20px;
     bottom: 90px;
-    z-index: 3000;
+    z-index: 500;
 }
 
 /* Botão do boneco */
