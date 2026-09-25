@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
-    
     <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
     <header class="header">
         <nav class="navbar container" aria-label="Navegação principal">
@@ -33,11 +31,23 @@
                 <li><a href="#acessibilidade">Acessibilidade</a></li>
             </ul>
 
-            <div class="nav-actions">
-                <a href="#" class="btn btn-outline">Entrar</a>
-                <a href="#" class="btn btn-primary">Cadastrar</a>
-            </div>
-        </nav>
+<div class="nav-actions">
+    <a href="cadastro-adaptavel/login.html" class="btn btn-outline">Entrar</a>
+
+    <button type="button"
+            class="btn btn-primary"
+            onclick="window.location.href='cadastro-adaptavel/cadastro.html'">
+        Cadastrar
+    </button>
+
+    <button id="ai-button" type="button" aria-label="Abrir Assistente Edu Acessível">
+        <img
+            id="ai-mascot-image"
+            src="imagens/mascote-fechado.jpeg"
+            alt="Mascote do Assistente Edu Acessível"
+        >
+    </button>
+</div>
     </header>
 
     <main id="main-content">
@@ -269,6 +279,44 @@
             © 2026 Edu Acessível. Projeto acadêmico.
         </div>
     </footer>
+
+    <!-- Assistente de IA -->
+<div id="ai-assistant">
+
+    <div id="ai-chat" hidden>
+
+        <div class="ai-header">
+            <strong>Assistente Edu Acessível</strong>
+
+            <button id="ai-close" type="button">
+                ×
+            </button>
+        </div>
+
+        <div id="ai-messages">
+            <div class="ai-message">
+                Olá! 👋 Sou o assistente do Edu Acessível.
+                Como posso ajudar?
+            </div>
+        </div>
+
+        <div class="ai-input-area">
+
+            <input
+                type="text"
+                id="ai-input"
+                placeholder="Digite sua pergunta..."
+            >
+
+            <button id="ai-send" type="button">
+                Enviar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
     <script src="js/script.js"></script>
 </body>
