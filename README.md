@@ -6,9 +6,9 @@ Plataforma de aprendizagem acessível e adaptativa, pensada para diferentes form
 
 | Informação | Valor |
 | --- | --- |
-| Instituição de Ensino | A ser definido pela equipe |
-| Curso | A ser definido pela equipe |
-| Disciplina | A ser definido pela equipe |
+| Instituição de Ensino | UNICEPLAC|
+| Curso | Engenharia de Software |
+| Disciplina | PROJETO INTEGRADO DE CERTIFICAÇÃO EM GOVERNANÇA E GESTÃO DE TI |
 | Orientador | Profº Hudson Neves |
 
 ## Descrição
