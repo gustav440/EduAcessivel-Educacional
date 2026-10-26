@@ -106,6 +106,9 @@
           aria-expanded="false"
           aria-controls="cfg-gaveta">⚙</button>
 
+<script>window.EDU_API_URL = "http://localhost:8080";</script>
+<script src="../js/api.js"></script>
+
   <script src="js/comum.js"></script>
   <script>
     (function () {
@@ -157,14 +160,19 @@
         }
         if (!ok) { anunciar('Corrija os campos indicados.'); return; }
 
-        /* Simula autenticação */
-        btnEntrar.disabled = true;
-        btnEntrar.textContent = 'Entrando…';
-        anunciar('Verificando credenciais…');
-
-        setTimeout(() => {
-          window.location.href = 'index.html';
-        }, 1000);
+            /* Entra de verdade pela API */
+    btnEntrar.disabled = true;
+    btnEntrar.textContent = 'Entrando…';
+    anunciar('Verificando credenciais…');
+    EduAPI.login(email, senha, document.getElementById('lembrar').checked)
+        .then(() => { window.location.href = '../index.html'; })
+        .catch((erro) => {
+            msgErroEl.textContent = erro.message;
+            msgErroEl.hidden = false;
+            btnEntrar.disabled = false;
+            btnEntrar.textContent = 'Entrar';
+            anunciar(erro.message);
+        });
       });
 
     })();

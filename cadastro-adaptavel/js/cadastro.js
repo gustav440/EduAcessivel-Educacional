@@ -88,7 +88,7 @@
     }
 
     const senha = document.getElementById('senha').value;
-    if (senha.length < 8) {
+    if (senha.length < 8 || !/[A-Za-z]/.test(senha) || !/\d/.test(senha)) {
       if (ok) mostrarErro('campo-senha', 'senha');
       else    document.getElementById('campo-senha').classList.add('tem-erro');
       ok = false;
@@ -270,27 +270,77 @@
   /* ================================================================
      ENVIO DO FORMULÁRIO
      ================================================================ */
-  form.addEventListener('submit', e => {
+    form.addEventListener('submit', e => {
     e.preventDefault();
     if (!validarStep3()) return;
 
     coletarStep2(); // garante que os dados do step 2 estão atualizados
 
     const btnEnviar = document.getElementById('btn-enviar');
+    const textoOriginal = btnEnviar.textContent;
     btnEnviar.disabled = true;
     btnEnviar.textContent = 'Criando conta…';
     anunciar('Processando seu cadastro…');
 
-    /* Simula chamada assíncrona */
-    setTimeout(() => {
-      form.hidden = true;
-      telaSucesso.hidden = false;
-      document.getElementById('msg-boas-vindas').textContent =
-        'Bem-vindo, ' + estado.dados.nome.split(' ')[0] + '! Suas preferências foram salvas.';
-      anunciar('Conta criada com sucesso! Redirecionando para o Hub de Cursos.');
-      telaSucesso.querySelector('a').focus();
-    }, 1200);
+    const d = estado.dados;
+    EduAPI.registrar({
+      nome: d.nome,
+      email: d.email,
+      senha: d.senha,
+      nascimento: d.nascimento,
+      necessidades: d.necessidades,
+      preferencias: {
+        tema: d.tema,
+        fonte: d.fonte,
+        tamanhoTexto: d.tamanhoFonte,
+        espacamento: d.espacamento,
+        formato: d.formato,
+      },
+      aceiteTermos: true,
+    })
+      .then(() => {
+        form.hidden = true;
+        telaSucesso.hidden = false;
+        document.getElementById('msg-boas-vindas').textContent =
+          'Bem-vindo, ' + d.nome.split(' ')[0] + '! Suas preferências foram salvas.';
+        anunciar('Conta criada com sucesso! Redirecionando para o Hub de Cursos.');
+        telaSucesso.querySelector('a').focus();
+      })
+      .catch(erro => {
+        btnEnviar.disabled = false;
+        btnEnviar.textContent = textoOriginal;
+        mostrarErroDaApi(erro);
+      });
   });
+
+  /* Mostra o erro devolvido pela API: volta à etapa 1 e marca o campo com problema */
+  function mostrarErroDaApi(erro) {
+    const campos = Object.assign({}, erro.campos);
+    if (erro.status === 409) campos.email = erro.message; // e-mail já cadastrado
+
+    const mapa = {
+      nome:       ['campo-nome', 'nome', 'erro-nome'],
+      email:      ['campo-email', 'email', 'erro-email'],
+      senha:      ['campo-senha', 'senha', 'erro-senha'],
+      nascimento: ['campo-nascimento', 'nascimento', 'erro-nascimento'],
+    };
+    const comErro = Object.keys(mapa).filter(k => campos[k]);
+
+    if (comErro.length === 0) {
+      const detalhes = Object.values(campos).join('\n');
+      anunciar(erro.message);
+      alert(erro.message + (detalhes ? '\n' + detalhes : ''));
+      return;
+    }
+
+    irParaStep(0);
+    comErro.reverse().forEach(k => {
+      const [campoId, inputId, erroId] = mapa[k];
+      document.getElementById(erroId).textContent = campos[k];
+      mostrarErro(campoId, inputId);
+    });
+    anunciar(erro.message);
+  }
 
   /* ================================================================
      ACESSIBILIDADE — anúncio para leitores de tela

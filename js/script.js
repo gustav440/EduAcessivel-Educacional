@@ -93,8 +93,8 @@ resetAccessibility?.addEventListener("click", () => {
 
 const searchInput = document.querySelector("#search");
 const searchButton = document.querySelector("#search-button");
+function buscarCursos() {
 
-searchButton?.addEventListener("click", () => {
     const searchTerm = searchInput.value.trim();
 
     if (!searchTerm) {
@@ -102,12 +102,14 @@ searchButton?.addEventListener("click", () => {
         return;
     }
 
-    // Futuramente:
-    // 1. Enviar a busca para a API.
-    // 2. Receber os conteúdos.
-    // 3. Renderizar os resultados.
+    // Abre o hub de cursos já filtrado pelo texto buscado
+    window.location.href =
+        "cadastro-adaptavel/conteudo.html?busca=" + encodeURIComponent(searchTerm);
+}
 
-    console.log("Buscando por:", searchTerm);
+searchButton?.addEventListener("click", buscarCursos);
+searchInput?.addEventListener("keydown", (evento) => {
+    if (evento.key === "Enter") buscarCursos();
 });
 
 
@@ -125,26 +127,14 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
 
 async function enviarMensagemParaIA(mensagem) {
     try {
-        const resposta = await fetch("/api/chat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                mensagem: mensagem
-            })
-        });
-
-        const dados = await resposta.json();
-
-        if (!resposta.ok) {
-            throw new Error(dados.erro || "Erro ao conversar com a IA.");
-        }
-
-        return dados.resposta;
-
+        return await EduAPI.perguntarAssistente(mensagem);
     } catch (erro) {
         console.error("Erro na IA:", erro);
+
+        // Avisos claros para limite de uso ou IA ainda não configurada
+        if (erro.status === 429 || erro.status === 503) {
+            return erro.message;
+        }
         return "Desculpe, não consegui responder agora. Tente novamente.";
     }
 }
@@ -235,3 +225,38 @@ try {
 
 aiInput.focus();
 });
+
+// =========================================================
+// CABEÇALHO — MOSTRA O USUÁRIO LOGADO
+// =========================================================
+
+async function mostrarUsuarioLogado() {
+    if (!EduAPI.estaLogado()) return;
+
+    const entrar = document.querySelector('.nav-actions a[href="cadastro-adaptavel/login.html"]');
+    const cadastrar = document.querySelector(".nav-actions .btn-primary");
+    if (!entrar || !cadastrar) return;
+
+    try {
+        const usuario = await EduAPI.usuarioAtual();
+        const primeiroNome = usuario.nome.split(" ")[0];
+
+        // "Entrar" vira a saudação
+        const saudacao = document.createElement("span");
+        saudacao.textContent = "Olá, " + primeiroNome;
+        saudacao.style.cssText = "align-self:center;font-weight:700;";
+        entrar.replaceWith(saudacao);
+
+        // "Cadastrar" vira "Sair"
+        cadastrar.textContent = "Sair";
+        cadastrar.onclick = () => {
+            EduAPI.sair();
+            window.location.reload();
+        };
+    } catch (erro) {
+        // Token expirado ou API desligada: mantém Entrar/Cadastrar
+        console.warn("Não foi possível carregar o usuário:", erro.message);
+    }
+}
+
+mostrarUsuarioLogado();
