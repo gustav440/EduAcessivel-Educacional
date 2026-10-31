@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Seu painel de estudos no EduAcessível: progresso, cursos e preferências de acessibilidade." />
+<meta name="theme-color" content="#5b5ce2" />
+<title>Meu painel | EduAcessível</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;600;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/portal.css" />
+<script src="js/portal-tema.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+<header id="portal-topo"></header>
+<div class="shell">
+<aside id="menu-lateral"></aside>
+<main id="conteudo-principal" class="conteudo" tabindex="-1">
+
+  <div id="aviso" role="alert" hidden></div>
+
+  <section id="area-bloqueada" class="cartao" hidden>
+    <h1>Entre para ver o seu painel</h1>
+    <p id="bloqueio-msg"></p>
+    <a href="../cadastro-adaptavel/login.html" class="btn-primario">Ir para o login</a>
+  </section>
+
+  <div id="painel" hidden>
+
+    <!-- ===== Boas-vindas e "continue de onde parou" ===== -->
+    <section class="hero" aria-labelledby="titulo-boas-vindas">
+      <p class="sobretitulo">Área do aluno</p>
+      <h1 id="titulo-boas-vindas">Olá!</h1>
+      <p id="mensagem-hero">Carregando o seu progresso…</p>
+      <div class="linha-acoes" id="acoes-hero"></div>
+    </section>
+
+    <!-- ===== Resumo ===== -->
+    <ul class="estatisticas" aria-label="Resumo dos seus estudos">
+      <li class="estatistica"><strong id="e-andamento">–</strong><span>Cursos em andamento</span></li>
+      <li class="estatistica"><strong id="e-concluidos">–</strong><span>Cursos concluídos</span></li>
+      <li class="estatistica"><strong id="e-aulas">–</strong><span>Aulas concluídas</span></li>
+      <li class="estatistica"><strong id="e-geral">–</strong><span>Progresso geral</span></li>
+    </ul>
+
+    <!-- ===== Meus cursos ===== -->
+    <section class="cartao" id="meus-cursos-secao" aria-labelledby="titulo-meus-cursos">
+      <div class="cartao-cab">
+        <h2 id="titulo-meus-cursos">Meus cursos</h2>
+      </div>
+      <div class="cursos-grade" id="meus-cursos" aria-live="polite"></div>
+    </section>
+
+    <!-- ===== Explorar cursos ===== -->
+    <section class="cartao" id="cursos" aria-labelledby="titulo-explorar">
+      <div class="cartao-cab">
+        <h2 id="titulo-explorar">Explorar cursos</h2>
+      </div>
+      <div class="campo busca">
+        <label for="busca-cursos">Buscar por título, assunto ou categoria</label>
+        <input type="search" id="busca-cursos" placeholder="Ex.: programação" autocomplete="off" />
+      </div>
+      <div role="group" aria-labelledby="rotulo-filtros">
+        <p class="dica" id="rotulo-filtros">Mostrar só cursos com estes recursos de acessibilidade:</p>
+        <div class="filtros" id="filtros"></div>
+      </div>
+      <div class="cursos-grade" id="catalogo" aria-live="polite"></div>
+    </section>
+
+    <!-- ===== Minha acessibilidade ===== -->
+    <section class="cartao" id="acessibilidade" aria-labelledby="titulo-acessibilidade">
+      <div class="cartao-cab">
+        <h2 id="titulo-acessibilidade">Minha acessibilidade</h2>
+        <button type="button" class="btn-secundario btn-pequeno" id="btn-abrir-a11y">Ajustar tema, fonte e tamanho</button>
+      </div>
+      <p class="descricao">Conte quais recursos ajudam você. Eles ficam salvos na sua conta e destacam esses recursos nos cursos.</p>
+      <form id="form-necessidades" novalidate>
+        <fieldset class="campo">
+          <legend>Recursos que me ajudam</legend>
+          <div class="grade-checks" id="lista-necessidades"></div>
+        </fieldset>
+        <div class="linha-acoes">
+          <button type="submit" class="btn-primario" id="btn-salvar-necessidades">Salvar</button>
+          <span class="meta" id="estado-necessidades" role="status"></span>
+        </div>
+      </form>
+    </section>
+
+  </div>
+</main>
+</div>
+<footer class="rodape">
+  <p><strong>EduAcessível</strong> · Aprender é para todos.</p>
+  <p>Projeto acadêmico · <a href="../index.html">Página inicial</a> · <a href="../cadastro-adaptavel/conteudo.html">Hub de cursos</a></p>
+</footer>
+<script>window.EDU_API_URL = "http://localhost:8080";</script>
+<script src="../js/api.js"></script>
+<script src="js/portal.js"></script>
+<script src="js/aluno.js"></script>
+</body>
+</html>

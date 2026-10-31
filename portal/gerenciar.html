@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Cursos, aulas e materiais de apoio do EduAcessível." />
+<meta name="theme-color" content="#5b5ce2" />
+<title>Gerenciar conteúdo | EduAcessível</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;600;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/portal.css" />
+<script src="js/portal-tema.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+<header id="portal-topo"></header>
+<div class="shell">
+<aside id="menu-lateral"></aside>
+<main id="conteudo-principal" class="conteudo" tabindex="-1">
+  <div id="aviso" role="alert" hidden></div>
+
+  <section id="area-bloqueada" class="cartao" hidden>
+    <h1>Acesso restrito</h1>
+    <p id="bloqueio-msg"></p>
+    <a href="../cadastro-adaptavel/login.html" class="btn-primario">Ir para o login</a>
+  </section>
+
+  <div id="painel" hidden>
+    <header class="pagina-cab">
+      <div>
+        <p class="sobretitulo">Área do professor</p>
+        <h1>Gerenciar conteúdo</h1>
+        <p class="descricao">Crie cursos, monte as aulas em blocos e envie vídeos, PDFs e áudios de apoio. <span id="saudacao"></span></p>
+      </div>
+      <div class="linha-acoes">
+        <a class="btn-secundario" href="professor.html">Ver progresso dos alunos</a>
+      </div>
+    </header>
+    <!-- ===== CURSOS ===== -->
+    <section class="cartao" aria-labelledby="titulo-cursos">
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-cursos">Cursos</h2>
+        <button type="button" class="btn-primario" id="btn-novo-curso">+ Novo curso</button>
+      </div>
+      <div class="grade-painel-cursos" id="lista-cursos" aria-live="polite"></div>
+    </section>
+
+    <!-- Formulário de curso -->
+    <section class="cartao" id="editor-curso" aria-labelledby="titulo-form-curso" hidden>
+      <h2 id="titulo-form-curso">Novo curso</h2>
+      <form id="form-curso" novalidate>
+        <div class="campo">
+          <label for="c-titulo">Título</label>
+          <input type="text" id="c-titulo" maxlength="160" required />
+        </div>
+        <div class="campo">
+          <label for="c-slug">Endereço do curso (slug)</label>
+          <p class="dica">Só letras minúsculas, números e hífens. Ex.: introducao-a-programacao</p>
+          <input type="text" id="c-slug" maxlength="120" required />
+        </div>
+        <div class="campo">
+          <label for="c-descricao">Descrição</label>
+          <textarea id="c-descricao" rows="3" maxlength="600" required></textarea>
+        </div>
+        <div class="campo">
+          <label for="c-categoria">Categoria</label>
+          <input type="text" id="c-categoria" maxlength="60" required />
+        </div>
+        <div class="campo">
+          <label for="c-nivel">Nível</label>
+          <select id="c-nivel" class="cfg-select">
+            <option>Iniciante</option>
+            <option>Básico</option>
+            <option>Intermediário</option>
+            <option>Avançado</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="c-duracao">Duração estimada (minutos)</label>
+          <input type="number" id="c-duracao" min="1" value="30" />
+        </div>
+        <fieldset class="campo">
+          <legend>Recursos de acessibilidade que o curso oferece</legend>
+          <div class="grade-checks" id="c-recursos"></div>
+        </fieldset>
+        <label class="termos">
+          <input type="checkbox" id="c-publicado" checked />
+          <span>Publicado (visível para os alunos)</span>
+        </label>
+        <div class="linha-acoes">
+          <button type="submit" class="btn-primario" id="btn-salvar-curso">Salvar curso</button>
+          <button type="button" class="btn-secundario" id="btn-cancelar-curso">Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== AULAS DO CURSO ESCOLHIDO ===== -->
+    <section class="cartao" id="editor-aulas" aria-labelledby="titulo-aulas" hidden>
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-aulas">Aulas</h2>
+        <div class="linha-acoes">
+          <button type="button" class="btn-primario" id="btn-nova-aula">+ Nova aula</button>
+          <button type="button" class="btn-secundario" id="btn-fechar-aulas">Fechar</button>
+        </div>
+      </div>
+      <ul class="lista-simples" id="lista-aulas" style="margin-top:1rem;" aria-live="polite"></ul>
+    </section>
+
+    <!-- Formulário de aula -->
+    <section class="cartao" id="editor-aula" aria-labelledby="titulo-form-aula" hidden>
+      <h2 id="titulo-form-aula">Nova aula</h2>
+      <form id="form-aula" novalidate>
+        <div class="campo">
+          <label for="a-titulo">Título da aula</label>
+          <input type="text" id="a-titulo" maxlength="160" required />
+        </div>
+        <div class="campo">
+          <label for="a-resumo">Resumo (frase curta que aparece abaixo do título)</label>
+          <input type="text" id="a-resumo" maxlength="300" />
+        </div>
+
+        <h3>Conteúdo da aula</h3>
+        <p class="dica">A aula é montada em blocos, na ordem em que aparecem aqui. Use ↑ e ↓ para reorganizar.</p>
+        <div id="blocos"></div>
+        <div class="linha-acoes" style="margin:1rem 0;">
+          <button type="button" class="btn-secundario" id="btn-add-bloco">+ Adicionar bloco</button>
+        </div>
+
+        <div class="linha-acoes">
+          <button type="submit" class="btn-primario" id="btn-salvar-aula">Salvar aula</button>
+          <button type="button" class="btn-secundario" id="btn-cancelar-aula">Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== MATERIAIS DA AULA (vídeo, PDF, áudio) ===== -->
+    <section class="cartao" id="editor-materiais" aria-labelledby="titulo-materiais" hidden>
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-materiais">Materiais da aula</h2>
+        <button type="button" class="btn-secundario" id="btn-fechar-materiais">Fechar</button>
+      </div>
+      <ul class="lista-simples" id="lista-materiais" style="margin:1rem 0;" aria-live="polite"></ul>
+
+      <form id="form-material" novalidate>
+        <h3>Enviar novo material</h3>
+        <p class="dica">Vídeo (MP4, WebM) até 300 MB. PDF (livros, apostilas) e áudio (MP3, WAV, OGG, M4A) até 60 MB.
+          Para vídeos e áudios, envie também a <strong>transcrição em PDF</strong>: ela ajuda quem não pode ouvir.</p>
+        <div class="campo">
+          <label for="m-arquivo">Arquivo</label>
+          <input type="file" id="m-arquivo" accept=".pdf,.mp3,.wav,.ogg,.m4a,.mp4,.webm" />
+        </div>
+        <div class="campo">
+          <label for="m-titulo">Título do material</label>
+          <input type="text" id="m-titulo" maxlength="160" />
+        </div>
+        <div class="campo">
+          <label for="m-descricao">Descrição (opcional)</label>
+          <input type="text" id="m-descricao" maxlength="500" />
+        </div>
+        <button type="submit" class="btn-primario" id="btn-enviar-material">Enviar material</button>
+      </form>
+    </section>
+
+    <!-- ===== USUÁRIOS (só administrador) ===== -->
+    <section class="cartao" id="area-usuarios" aria-labelledby="titulo-usuarios" hidden>
+      <h2 id="titulo-usuarios">Usuários e papéis</h2>
+      <p>Defina quem é aluno, professor ou administrador. Você não pode alterar o seu próprio papel.
+        Para punições e denúncias, use o <a href="admin.html">painel da administração</a>.</p>
+      <ul class="lista-simples" id="lista-usuarios"></ul>
+    </section>
+  </div>
+</main>
+</div>
+<footer class="rodape">
+  <p><strong>EduAcessível</strong> · Aprender é para todos.</p>
+  <p>Projeto acadêmico · <a href="../index.html">Página inicial</a> · <a href="../cadastro-adaptavel/conteudo.html">Hub de cursos</a></p>
+</footer>
+<script>window.EDU_API_URL = "http://localhost:8080";</script>
+<script src="../js/api.js"></script>
+<script src="js/portal.js"></script>
+<script src="js/gerenciar.js"></script>
+</body>
+</html>

@@ -1838,7 +1838,259 @@ body.high-contrast .lesson-section h2 {
         });
 
     </script>
+    
+    <script>window.EDU_API_URL = "http://localhost:8080";</script>
+<script src="js/api.js"></script>
+<script>
+(function () {
+  "use strict";
 
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('curso') || 'introducao-a-programacao';
+  const numero = parseInt(params.get('aula') || '1', 10) || 1;
+
+  const conteudo = document.querySelector('.lesson-content');
+  const navegacao = document.querySelector('.lesson-navigation');
+  const PAGINA_LOGIN = 'cadastro-adaptavel/login.html';
+
+  /* Guarda os ícones originais antes de apagar o conteúdo fixo */
+  function textoDe(seletor, padrao) {
+    const el = document.querySelector(seletor);
+    return (el && el.textContent.trim()) || padrao;
+  }
+  const iconeDestaque = textoDe('.highlight-icon', '💡');
+  const iconeResumo = textoDe('.lesson-summary > span', '✅');
+
+  function criar(tag, classe, texto) {
+    const el = document.createElement(tag);
+    if (classe) el.className = classe;
+    if (texto !== undefined) el.textContent = texto;
+    return el;
+  }
+
+  function linhas(texto) {
+    return texto.split('\n').map(l => l.trim()).filter(Boolean);
+  }
+
+  function avisar(texto) {
+    let aviso = document.getElementById('aviso-aula');
+    if (!aviso) {
+      aviso = criar('p');
+      aviso.id = 'aviso-aula';
+      aviso.setAttribute('role', 'alert');
+      aviso.style.cssText = 'color:#b42318;font-weight:700;';
+      conteudo.insertBefore(aviso, conteudo.firstChild);
+    }
+    aviso.textContent = texto;
+  }
+
+  /* ---------- Topo, barra de progresso e título ---------- */
+  function preencherTopo(aula) {
+    const dois = String(aula.numero).padStart(2, '0');
+    document.title = aula.titulo + ' — Edu Acessível';
+
+    const eyebrow = document.querySelector('.lesson-heading .eyebrow');
+    if (eyebrow) eyebrow.textContent = 'AULA ' + dois + ' • ' + aula.categoria.toUpperCase();
+    document.querySelector('.lesson-heading h1').textContent = aula.titulo;
+    const resumo = document.querySelector('.lesson-heading p');
+    if (resumo) {
+      resumo.textContent = aula.resumo || '';
+      resumo.hidden = !aula.resumo;
+    }
+
+    document.querySelector('.progress-info span').textContent = aula.cursoTitulo;
+    document.querySelector('.progress-info strong').textContent =
+      'Aula ' + aula.numero + ' de ' + aula.totalAulas;
+    const pct = Math.round(aula.numero * 100 / aula.totalAulas);
+    const barra = document.querySelector('.progress-bar');
+    barra.setAttribute('aria-valuenow', String(pct));
+    barra.querySelector('.progress-value').style.width = pct + '%';
+
+    const categoria = document.querySelector('.course-category');
+    if (categoria) categoria.textContent = aula.categoria.toUpperCase();
+    const tituloCurso = document.querySelector('.course-title h2');
+    if (tituloCurso) tituloCurso.textContent = aula.cursoTitulo;
+  }
+
+  /* ---------- Menu lateral de aulas ---------- */
+  function montarMenu(aulas, atual) {
+    const menu = document.querySelector('.lesson-menu');
+    menu.replaceChildren();
+    aulas.forEach(a => {
+      const link = criar('a', 'lesson-item' + (a.numero === atual ? ' active' : ''));
+      link.href = 'tec.html?curso=' + encodeURIComponent(slug) + '&aula=' + a.numero;
+      link.dataset.numero = String(a.numero);
+      if (a.numero === atual) link.setAttribute('aria-current', 'page');
+      link.appendChild(criar('span', 'lesson-number', a.concluida ? '✓' : String(a.numero)));
+      link.appendChild(criar('span', '', a.titulo));
+      menu.appendChild(link);
+    });
+  }
+
+  /* ---------- Conteúdo da aula (blocos vindos do banco) ---------- */
+  function criarCodigo(b) {
+    const caixa = criar('div', 'code-container');
+    const cabecalho = criar('div', 'code-header');
+    cabecalho.appendChild(criar('span', '', b.linguagem || 'Código'));
+    const botao = criar('button', '', 'Copiar');
+    botao.type = 'button';
+    botao.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(b.texto);
+        botao.textContent = '✓ Copiado!';
+      } catch (e) {
+        botao.textContent = 'Não foi possível copiar';
+      }
+      setTimeout(() => { botao.textContent = 'Copiar'; }, 2000);
+    });
+    cabecalho.appendChild(botao);
+    const pre = criar('pre');
+    pre.appendChild(criar('code', '', b.texto));
+    caixa.append(cabecalho, pre);
+    return caixa;
+  }
+
+  function renderizarBlocos(blocos) {
+    /* apaga o conteúdo fixo, mantendo cabeçalho, ferramentas, aviso e navegação */
+    Array.from(conteudo.children).forEach(el => {
+      const manter = el.classList.contains('lesson-heading')
+        || el.classList.contains('accessibility-tools')
+        || el.classList.contains('lesson-navigation')
+        || el.id === 'aviso-aula'
+        || el.id === 'interacao-aula';
+      if (!manter) el.remove();
+    });
+
+    let secao = null;
+    let anterior = null;
+    const inserir = el => conteudo.insertBefore(el, navegacao);
+    const naSecao = el => {
+      if (!secao) { secao = criar('section', 'lesson-section'); inserir(secao); }
+      secao.appendChild(el);
+    };
+
+    blocos.forEach(b => {
+      switch (b.tipo) {
+        case 'SUBTITULO':
+          secao = criar('section', 'lesson-section');
+          secao.appendChild(criar('h2', '', b.texto));
+          inserir(secao);
+          break;
+        case 'PARAGRAFO':
+          naSecao(criar('p', anterior === 'CODIGO' ? 'code-explanation' : '', b.texto));
+          break;
+        case 'LISTA_ORDENADA':
+        case 'LISTA': {
+          const ordenada = b.tipo === 'LISTA_ORDENADA';
+          const lista = criar(ordenada ? 'ol' : 'ul', ordenada ? 'steps' : '');
+          linhas(b.texto).forEach(t => lista.appendChild(criar('li', '', t)));
+          naSecao(lista);
+          break;
+        }
+        case 'CODIGO':
+          naSecao(criarCodigo(b));
+          break;
+        case 'DESTAQUE': {
+          secao = null;
+          const caixa = criar('div', 'lesson-highlight');
+          caixa.appendChild(criar('span', 'highlight-icon', iconeDestaque));
+          const texto = criar('div');
+          if (b.titulo) texto.appendChild(criar('strong', '', b.titulo));
+          texto.appendChild(criar('p', '', b.texto));
+          caixa.appendChild(texto);
+          inserir(caixa);
+          break;
+        }
+        case 'RESUMO': {
+          secao = null;
+          const resumo = criar('section', 'lesson-summary');
+          resumo.appendChild(criar('span', '', iconeResumo));
+          const corpo = criar('div');
+          corpo.appendChild(criar('h2', '', b.titulo || 'Resumo'));
+          const ul = criar('ul');
+          linhas(b.texto).forEach(t => ul.appendChild(criar('li', '', t)));
+          corpo.appendChild(ul);
+          resumo.appendChild(corpo);
+          inserir(resumo);
+          break;
+        }
+      }
+      anterior = b.tipo;
+    });
+  }
+
+  /* ---------- Botões de baixo: concluir e próxima aula ---------- */
+  function prepararNavegacao(aula) {
+    const proxima = navegacao.querySelector('.lesson-nav-button.primary');
+    if (proxima) {
+      if (aula.proxima) {
+        proxima.href = 'tec.html?curso=' + encodeURIComponent(slug) + '&aula=' + aula.proxima;
+        proxima.hidden = false;
+      } else {
+        proxima.hidden = true;
+      }
+    }
+
+    let botao = document.getElementById('concluir-aula');
+    if (!botao) {
+      botao = criar('button', 'lesson-nav-button secondary');
+      botao.id = 'concluir-aula';
+      botao.type = 'button';
+      botao.style.cssText = 'cursor:pointer;font:inherit;';
+      navegacao.insertBefore(botao, proxima);
+    }
+
+    let concluida = aula.concluida;
+    function atualizarBotao() {
+      if (!EduAPI.estaLogado()) {
+        botao.textContent = 'Entrar para salvar o progresso';
+        botao.removeAttribute('aria-pressed');
+        return;
+      }
+      botao.textContent = concluida ? '✓ Aula concluída' : 'Marcar como concluída';
+      botao.setAttribute('aria-pressed', String(concluida));
+    }
+    atualizarBotao();
+
+    botao.onclick = async () => {
+      if (!EduAPI.estaLogado()) { window.location.href = PAGINA_LOGIN; return; }
+      botao.disabled = true;
+      try {
+        if (concluida) await EduAPI.desmarcarAula(slug, aula.numero);
+        else await EduAPI.concluirAula(slug, aula.numero);
+        concluida = !concluida;
+        atualizarBotao();
+        const marca = document.querySelector('.lesson-item[data-numero="' + aula.numero + '"] .lesson-number');
+        if (marca) marca.textContent = concluida ? '✓' : String(aula.numero);
+      } catch (erro) {
+        if (erro.status === 401) { window.location.href = PAGINA_LOGIN; return; }
+        avisar(erro.message);
+      }
+      botao.disabled = false;
+    };
+  }
+
+  /* ---------- Carrega tudo ---------- */
+  async function carregar() {
+    try {
+      const [aula, detalhe] = await Promise.all([
+        EduAPI.obterAula(slug, numero),
+        EduAPI.obterCurso(slug),
+      ]);
+      preencherTopo(aula);
+      montarMenu(detalhe.aulas, aula.numero);
+      renderizarBlocos(aula.blocos);
+      prepararNavegacao(aula);
+    } catch (erro) {
+      avisar('Não foi possível carregar esta aula do servidor (' + erro.message
+        + '). Mostrando a versão salva no site.');
+    }
+  }
+
+  carregar();
+})();
+</script>
+<script src="js/aula-interacao.js"></script>
 </body>
 
 </html>

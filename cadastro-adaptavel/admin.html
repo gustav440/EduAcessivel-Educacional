@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Painel da administração — EduAcessível</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/cadastro-eduacessivel.css" />
+<link rel="stylesheet" href="css/estilo.css" />
+<style>
+  /* Estilos só deste painel (usam as cores do tema do site) */
+  .painel-cartao { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
+  .painel-cartao[hidden] { display: none; }
+  .linha-acoes { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  .btn-pequeno { padding: .35rem .8rem; font-size: .82rem; }
+  .abas { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 1.5rem; align-items: center; }
+  .aba { background: var(--surface); color: var(--ink); }
+  .aba[aria-pressed="true"] { background: var(--primary); color: var(--primary-ink); }
+  .aba-link { font-weight: 700; margin-left: .5rem; }
+  .lista-simples { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+  .denuncia, .item-usuario { border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; background: var(--surface); }
+  .denuncia h3 { margin: 0; font-size: 1.05rem; }
+  .meta { font-size: .85rem; color: var(--ink-soft); margin: .25rem 0; }
+  .trecho { border-left: 4px solid var(--primary); margin: .6rem 0; padding: .4rem .8rem; background: var(--surface-2); white-space: pre-wrap; }
+  .pilula { display: inline-block; font-size: .75rem; font-weight: 700; padding: .15rem .6rem; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); color: var(--ink); }
+  .pilula-aberta, .pilula-suspenso { background: var(--primary-soft); border-color: var(--primary); }
+  .pilula-procedente, .pilula-banido, .pilula-removido { background: var(--error-soft); border-color: var(--error); color: var(--error); }
+  .form-decisao { border-top: 1px dashed var(--border); margin-top: .8rem; padding-top: .8rem; display: grid; gap: .7rem; }
+  .form-decisao fieldset { display: grid; gap: .4rem; }
+  .rotulo-campo { display: grid; gap: .25rem; font-weight: 700; font-size: .9rem; }
+  .rotulo-linha { display: flex; gap: .5rem; align-items: center; font-weight: normal; }
+  .form-decisao input[type="text"], .form-decisao input[type="number"], .form-decisao textarea, .painel-extra input[type="text"], .painel-extra input[type="number"] {
+    width: 100%; font: inherit; padding: .5rem .7rem; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+  }
+  .form-decisao [hidden], .painel-extra [hidden] { display: none !important; }
+  .painel-extra { margin-top: .8rem; display: grid; gap: .6rem; }
+  .historico-item { border-bottom: 1px solid var(--border); padding: .4rem 0; font-size: .88rem; }
+  #aviso { margin-bottom: 1rem; }
+  #aviso[hidden] { display: none; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+<header class="topbar" role="banner">
+  <div class="marca">
+    <div class="selo" aria-hidden="true">EA</div>
+    <span>EduAcessível</span>
+  </div>
+  <nav aria-label="Navegação principal" style="display:flex;align-items:center;gap:1rem;">
+    <a href="painel.html" style="font-size:.85rem;">Visão geral</a>
+    <a href="professor.html" style="font-size:.85rem;">Cursos, aulas e materiais</a>
+    <a href="conteudo.html" style="font-size:.85rem;">Hub de cursos</a>
+    <a href="login.html" id="link-sair" style="font-size:.85rem;color:var(--ink-soft);text-decoration:none;">Sair</a>
+  </nav>
+</header>
+
+<main id="conteudo-principal" tabindex="-1">
+
+  <div id="aviso" role="alert" hidden></div>
+
+  <section id="area-bloqueada" class="painel-cartao" hidden>
+    <h1>Acesso restrito</h1>
+    <p id="bloqueio-msg"></p>
+    <a href="login.html" class="btn-primario" style="display:inline-block;padding:.7rem 1.3rem;border-radius:999px;text-decoration:none;font-weight:700;">Ir para o login</a>
+  </section>
+
+  <div id="painel" hidden>
+    <h1>Painel da administração</h1>
+    <p id="saudacao"></p>
+
+    <nav class="abas" aria-label="Seções do painel">
+      <button type="button" class="aba" data-aba="denuncias" aria-pressed="true">Denúncias <span id="badge-denuncias"></span></button>
+      <button type="button" class="aba" data-aba="usuarios" aria-pressed="false">Usuários e punições</button>
+      <button type="button" class="aba" data-aba="conteudo" aria-pressed="false">Comentários e materiais</button>
+      <a class="aba-link" href="professor.html">Cursos, aulas e materiais →</a>
+    </nav>
+
+    <!-- ===== DENÚNCIAS ===== -->
+    <section id="aba-denuncias" class="painel-cartao" aria-labelledby="titulo-denuncias">
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-denuncias">Denúncias</h2>
+        <label class="rotulo-linha" for="filtro-status">
+          <span>Mostrar:</span>
+          <select id="filtro-status" class="cfg-select" style="width:auto;">
+            <option value="ABERTA">Abertas</option>
+            <option value="PROCEDENTE">Procedentes</option>
+            <option value="IMPROCEDENTE">Improcedentes</option>
+            <option value="">Todas</option>
+          </select>
+        </label>
+      </div>
+      <div class="lista-simples" id="lista-denuncias" style="margin-top:1rem;" aria-live="polite"></div>
+    </section>
+
+    <!-- ===== USUÁRIOS E PUNIÇÕES ===== -->
+    <section id="aba-usuarios" class="painel-cartao" aria-labelledby="titulo-usuarios" hidden>
+      <h2 id="titulo-usuarios">Usuários e punições</h2>
+      <p>Altere o papel de alguém, aplique advertência, suspensão ou banimento e veja o histórico. Administradores não podem ser punidos por aqui.</p>
+      <ul class="lista-simples" id="lista-usuarios-mod"></ul>
+    </section>
+
+    <!-- ===== COMENTÁRIOS E MATERIAIS ===== -->
+    <section id="aba-conteudo" class="painel-cartao" aria-labelledby="titulo-conteudo" hidden>
+      <h2 id="titulo-conteudo">Comentários e materiais recentes</h2>
+      <p>Os últimos 100 de cada tipo, inclusive os já removidos. Remover só esconde o conteúdo e guarda o motivo; dá para restaurar.</p>
+      <h3>Comentários</h3>
+      <ul class="lista-simples" id="lista-comentarios"></ul>
+      <h3 style="margin-top:1.5rem;">Materiais</h3>
+      <ul class="lista-simples" id="lista-materiais"></ul>
+    </section>
+  </div>
+</main>
+
+<button class="cfg-btn" id="cfg-btn" aria-label="Abrir configurações de acessibilidade" aria-expanded="false" aria-controls="cfg-gaveta">⚙</button>
+
+<script>window.EDU_API_URL = "http://localhost:8080";</script>
+<script src="../js/api.js"></script>
+<script src="js/comum.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

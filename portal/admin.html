@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Denúncias, punições e conteúdo do EduAcessível." />
+<meta name="theme-color" content="#5b5ce2" />
+<title>Moderação | EduAcessível</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;600;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/portal.css" />
+<script src="js/portal-tema.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+<header id="portal-topo"></header>
+<div class="shell">
+<aside id="menu-lateral"></aside>
+<main id="conteudo-principal" class="conteudo" tabindex="-1">
+  <div id="aviso" role="alert" hidden></div>
+
+  <section id="area-bloqueada" class="cartao" hidden>
+    <h1>Acesso restrito</h1>
+    <p id="bloqueio-msg"></p>
+    <a href="../cadastro-adaptavel/login.html" class="btn-primario">Ir para o login</a>
+  </section>
+
+  <div id="painel" hidden>
+    <header class="pagina-cab">
+      <div>
+        <p class="sobretitulo">Administração</p>
+        <h1>Moderação</h1>
+        <p class="descricao">Analise denúncias, aplique punições e remova conteúdo de professores e alunos. <span id="saudacao"></span></p>
+      </div>
+      <div class="linha-acoes">
+        <a class="btn-secundario" href="gerenciar.html">Gerenciar conteúdo</a>
+        <a class="btn-secundario" href="professor.html">Visão geral</a>
+      </div>
+    </header>
+    <nav class="abas" aria-label="Seções do painel">
+      <button type="button" class="aba" data-aba="denuncias" aria-pressed="true">Denúncias <span id="badge-denuncias"></span></button>
+      <button type="button" class="aba" data-aba="usuarios" aria-pressed="false">Usuários e punições</button>
+      <button type="button" class="aba" data-aba="conteudo" aria-pressed="false">Comentários e materiais</button>
+      <a class="aba-link" href="gerenciar.html">Cursos, aulas e materiais →</a>
+    </nav>
+
+    <!-- ===== DENÚNCIAS ===== -->
+    <section id="aba-denuncias" class="cartao" aria-labelledby="titulo-denuncias">
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-denuncias">Denúncias</h2>
+        <label class="rotulo-linha" for="filtro-status">
+          <span>Mostrar:</span>
+          <select id="filtro-status" class="cfg-select" style="width:auto;">
+            <option value="ABERTA">Abertas</option>
+            <option value="PROCEDENTE">Procedentes</option>
+            <option value="IMPROCEDENTE">Improcedentes</option>
+            <option value="">Todas</option>
+          </select>
+        </label>
+      </div>
+      <div class="lista-simples" id="lista-denuncias" style="margin-top:1rem;" aria-live="polite"></div>
+    </section>
+
+    <!-- ===== USUÁRIOS E PUNIÇÕES ===== -->
+    <section id="aba-usuarios" class="cartao" aria-labelledby="titulo-usuarios" hidden>
+      <h2 id="titulo-usuarios">Usuários e punições</h2>
+      <p>Altere o papel de alguém, aplique advertência, suspensão ou banimento e veja o histórico. Administradores não podem ser punidos por aqui.</p>
+      <ul class="lista-simples" id="lista-usuarios-mod"></ul>
+    </section>
+
+    <!-- ===== COMENTÁRIOS E MATERIAIS ===== -->
+    <section id="aba-conteudo" class="cartao" aria-labelledby="titulo-conteudo" hidden>
+      <h2 id="titulo-conteudo">Comentários e materiais recentes</h2>
+      <p>Os últimos 100 de cada tipo, inclusive os já removidos. Remover só esconde o conteúdo e guarda o motivo; dá para restaurar.</p>
+      <h3>Comentários</h3>
+      <ul class="lista-simples" id="lista-comentarios"></ul>
+      <h3 style="margin-top:1.5rem;">Materiais</h3>
+      <ul class="lista-simples" id="lista-materiais"></ul>
+    </section>
+  </div>
+</main>
+</div>
+<footer class="rodape">
+  <p><strong>EduAcessível</strong> · Aprender é para todos.</p>
+  <p>Projeto acadêmico · <a href="../index.html">Página inicial</a> · <a href="../cadastro-adaptavel/conteudo.html">Hub de cursos</a></p>
+</footer>
+<script>window.EDU_API_URL = "http://localhost:8080";</script>
+<script src="../js/api.js"></script>
+<script src="js/portal.js"></script>
+<script src="js/moderacao.js"></script>
+</body>
+</html>
