@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Visão geral — EduAcessível</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/cadastro-eduacessivel.css" />
+<link rel="stylesheet" href="css/estilo.css" />
+<style>
+  /* Estilos só desta página (usam as cores do tema do site) */
+  .painel-cartao { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
+  .painel-cartao[hidden] { display: none; }
+  .linha-acoes { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  .btn-pequeno { padding: .35rem .8rem; font-size: .82rem; }
+  .numeros { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.25rem 0 1.5rem; padding: 0; list-style: none; }
+  .numero { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
+  .numero strong { display: block; font-size: 1.8rem; font-family: var(--font-head); line-height: 1.1; }
+  .numero span { font-size: .85rem; color: var(--ink-soft); }
+  .grade-cursos-progresso { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .meta { font-size: .85rem; color: var(--ink-soft); margin: .25rem 0; }
+  .barra { width: 100%; height: .6rem; accent-color: var(--primary); }
+  .tabela-rolavel { overflow-x: auto; margin-top: 1rem; }
+  table.alunos { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  table.alunos caption { text-align: left; font-weight: 700; padding-bottom: .5rem; }
+  table.alunos th, table.alunos td { text-align: left; padding: .55rem .6rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  table.alunos th { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-soft); }
+  .pilula { display: inline-block; font-size: .75rem; font-weight: 700; padding: .15rem .6rem; border-radius: 999px; border: 1px solid var(--primary); background: var(--primary-soft); }
+  #aviso { margin-bottom: 1rem; }
+  #aviso[hidden] { display: none; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+<header class="topbar" role="banner">
+  <div class="marca">
+    <div class="selo" aria-hidden="true">EA</div>
+    <span>EduAcessível</span>
+  </div>
+  <nav aria-label="Navegação principal" style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+    <a href="professor.html" style="font-size:.85rem;">Cursos, aulas e materiais</a>
+    <a href="admin.html" id="link-admin" style="font-size:.85rem;" hidden>Moderação</a>
+    <a href="conteudo.html" style="font-size:.85rem;">Hub de cursos</a>
+    <a href="login.html" id="link-sair" style="font-size:.85rem;color:var(--ink-soft);text-decoration:none;">Sair</a>
+  </nav>
+</header>
+
+<main id="conteudo-principal" tabindex="-1">
+
+  <div id="aviso" role="alert" hidden></div>
+
+  <section id="area-bloqueada" class="painel-cartao" hidden>
+    <h1>Acesso restrito</h1>
+    <p id="bloqueio-msg"></p>
+    <a href="login.html" class="btn-primario" style="display:inline-block;padding:.7rem 1.3rem;border-radius:999px;text-decoration:none;font-weight:700;">Ir para o login</a>
+  </section>
+
+  <div id="painel" hidden>
+    <h1>Visão geral</h1>
+    <p id="saudacao"></p>
+
+    <ul class="numeros" aria-label="Números da plataforma">
+      <li class="numero"><strong id="n-alunos">–</strong><span>Alunos</span></li>
+      <li class="numero"><strong id="n-cursos">–</strong><span>Cursos</span></li>
+      <li class="numero"><strong id="n-aulas">–</strong><span>Aulas</span></li>
+      <li class="numero"><strong id="n-materiais">–</strong><span>Materiais de apoio</span></li>
+      <li class="numero"><strong id="n-comentarios">–</strong><span>Comentários</span></li>
+    </ul>
+
+    <!-- ===== PROGRESSO POR CURSO ===== -->
+    <section class="painel-cartao" aria-labelledby="titulo-progresso">
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-progresso">Conteúdos e progresso dos alunos</h2>
+        <button type="button" class="btn-secundario btn-pequeno" id="btn-atualizar">Atualizar</button>
+      </div>
+      <p class="meta">Cada curso mostra quantos alunos começaram, quantos terminaram e a média de conclusão.</p>
+      <div class="grade-cursos-progresso" id="lista-cursos" aria-live="polite"></div>
+    </section>
+
+    <!-- ===== ALUNOS DO CURSO ESCOLHIDO ===== -->
+    <section class="painel-cartao" id="detalhe-curso" aria-labelledby="titulo-detalhe" hidden>
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-detalhe">Alunos</h2>
+        <button type="button" class="btn-secundario btn-pequeno" id="btn-fechar-detalhe">Fechar</button>
+      </div>
+      <div class="tabela-rolavel" id="tabela-alunos" aria-live="polite"></div>
+    </section>
+  </div>
+</main>
+
+<button class="cfg-btn" id="cfg-btn" aria-label="Abrir configurações de acessibilidade" aria-expanded="false" aria-controls="cfg-gaveta">⚙</button>
+
+<script>window.EDU_API_URL = "http://localhost:8080";</script>
+<script src="../js/api.js"></script>
+<script src="js/comum.js"></script>
+<script src="js/painel.js"></script>
+</body>
+</html>

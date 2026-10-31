@@ -165,7 +165,10 @@
     btnEntrar.textContent = 'Entrando…';
     anunciar('Verificando credenciais…');
     EduAPI.login(email, senha, document.getElementById('lembrar').checked)
-        .then(() => { window.location.href = '../index.html'; })
+        .then(async (usuario) => {
+           await EduAPI.aplicarPreferenciasDaConta();
+           window.location.href = usuario.papel === 'ALUNO' ? '../portal/aluno.html' : '../portal/professor.html';
+       })
         .catch((erro) => {
             msgErroEl.textContent = erro.message;
             msgErroEl.hidden = false;

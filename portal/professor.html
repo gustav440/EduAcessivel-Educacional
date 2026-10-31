@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Conteúdos e progresso dos alunos no EduAcessível." />
+<meta name="theme-color" content="#5b5ce2" />
+<title>Visão geral do professor | EduAcessível</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;600;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/portal.css" />
+<script src="js/portal-tema.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+<header id="portal-topo"></header>
+<div class="shell">
+<aside id="menu-lateral"></aside>
+<main id="conteudo-principal" class="conteudo" tabindex="-1">
+  <div id="aviso" role="alert" hidden></div>
+
+  <section id="area-bloqueada" class="cartao" hidden>
+    <h1>Acesso restrito</h1>
+    <p id="bloqueio-msg"></p>
+    <a href="../cadastro-adaptavel/login.html" class="btn-primario">Ir para o login</a>
+  </section>
+
+  <div id="painel" hidden>
+    <header class="pagina-cab">
+      <div>
+        <p class="sobretitulo">Área do professor</p>
+        <h1>Visão geral</h1>
+        <p class="descricao" id="saudacao"></p>
+      </div>
+      <div class="linha-acoes">
+        <a class="btn-primario" href="gerenciar.html">Gerenciar conteúdo</a>
+      </div>
+    </header>
+    <ul class="numeros" aria-label="Números da plataforma">
+      <li class="numero"><strong id="n-alunos">–</strong><span>Alunos</span></li>
+      <li class="numero"><strong id="n-cursos">–</strong><span>Cursos</span></li>
+      <li class="numero"><strong id="n-aulas">–</strong><span>Aulas</span></li>
+      <li class="numero"><strong id="n-materiais">–</strong><span>Materiais de apoio</span></li>
+      <li class="numero"><strong id="n-comentarios">–</strong><span>Comentários</span></li>
+    </ul>
+
+    <!-- ===== PROGRESSO POR CURSO ===== -->
+    <section class="cartao" aria-labelledby="titulo-progresso">
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-progresso">Conteúdos e progresso dos alunos</h2>
+        <button type="button" class="btn-secundario btn-pequeno" id="btn-atualizar">Atualizar</button>
+      </div>
+      <p class="meta">Cada curso mostra quantos alunos começaram, quantos terminaram e a média de conclusão.</p>
+      <div class="grade-cursos-progresso" id="lista-cursos" aria-live="polite"></div>
+    </section>
+
+    <!-- ===== ALUNOS DO CURSO ESCOLHIDO ===== -->
+    <section class="cartao" id="detalhe-curso" aria-labelledby="titulo-detalhe" hidden>
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-detalhe">Alunos</h2>
+        <button type="button" class="btn-secundario btn-pequeno" id="btn-fechar-detalhe">Fechar</button>
+      </div>
+      <div class="tabela-rolavel" id="tabela-alunos" aria-live="polite"></div>
+    </section>
+  </div>
+</main>
+</div>
+<footer class="rodape">
+  <p><strong>EduAcessível</strong> · Aprender é para todos.</p>
+  <p>Projeto acadêmico · <a href="../index.html">Página inicial</a> · <a href="../cadastro-adaptavel/conteudo.html">Hub de cursos</a></p>
+</footer>
+<script>window.EDU_API_URL = "http://localhost:8080";</script>
+<script src="../js/api.js"></script>
+<script src="js/portal.js"></script>
+<script src="js/visao-geral.js"></script>
+</body>
+</html>

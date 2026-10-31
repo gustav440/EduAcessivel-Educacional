@@ -1956,7 +1956,8 @@ body.high-contrast .lesson-section h2 {
       const manter = el.classList.contains('lesson-heading')
         || el.classList.contains('accessibility-tools')
         || el.classList.contains('lesson-navigation')
-        || el.id === 'aviso-aula';
+        || el.id === 'aviso-aula'
+        || el.id === 'interacao-aula';
       if (!manter) el.remove();
     });
 
@@ -2089,7 +2090,7 @@ body.high-contrast .lesson-section h2 {
   carregar();
 })();
 </script>
-
+<script src="js/aula-interacao.js"></script>
 </body>
 
 </html>

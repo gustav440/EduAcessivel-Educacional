@@ -247,6 +247,12 @@ async function mostrarUsuarioLogado() {
         saudacao.style.cssText = "align-self:center;font-weight:700;";
         entrar.replaceWith(saudacao);
 
+            const painel = document.createElement("a");
+           painel.textContent = usuario.papel === "ALUNO" ? "Meu painel" : "Painel";
+           painel.href = usuario.papel === "ALUNO" ? "portal/aluno.html" : "portal/professor.html";
+           painel.style.cssText = "align-self:center;font-weight:700;";
+           saudacao.after(painel);
+
         // "Cadastrar" vira "Sair"
         cadastrar.textContent = "Sair";
         cadastrar.onclick = () => {

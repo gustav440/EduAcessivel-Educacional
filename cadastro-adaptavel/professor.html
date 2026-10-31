@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Painel de conteúdo — EduAcessível</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:wght@500;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/cadastro-eduacessivel.css" />
+<link rel="stylesheet" href="css/estilo.css" />
+<style>
+  /* Estilos só deste painel (usam as cores do tema do site) */
+  .painel-cartao { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
+  .painel-cartao[hidden] { display: none; }
+  .campo textarea, .campo input[type="number"], .bloco-item textarea, .bloco-item input[type="text"] {
+    width: 100%; font: inherit; padding: .6rem .75rem; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+  }
+  .campo input[type="file"] { width: 100%; font: inherit; }
+  .campo input[type="number"] { max-width: 10rem; }
+  .linha-acoes { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  .btn-pequeno { padding: .35rem .8rem; font-size: .82rem; }
+  .lista-simples { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+  .item-aula { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5rem; border-bottom: 1px solid var(--border); padding-bottom: .6rem; }
+  .bloco-item { border: 1px dashed var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem; display: grid; gap: .6rem; background: var(--surface-2); }
+  .bloco-item [hidden] { display: none !important; }
+  .dica-bloco { font-size: .8rem; margin: 0; }
+  .grade-painel-cursos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .meta-curso { font-size: .82rem; margin: .25rem 0 0; }
+  #aviso { margin-bottom: 1rem; }
+  #aviso[hidden] { display: none; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+<header class="topbar" role="banner">
+  <div class="marca">
+    <div class="selo" aria-hidden="true">EA</div>
+    <span>EduAcessível</span>
+  </div>
+  <nav aria-label="Navegação principal" style="display:flex;align-items:center;gap:1rem;">
+    <a href="painel.html" style="font-size:.85rem;">Visão geral</a>
+    <a href="admin.html" id="link-admin" style="font-size:.85rem;" hidden>Administração</a>
+    <a href="conteudo.html" style="font-size:.85rem;">Hub de cursos</a>
+    <a href="login.html" id="link-sair" style="font-size:.85rem;color:var(--ink-soft);text-decoration:none;">Sair</a>
+  </nav>
+</header>
+
+<main id="conteudo-principal" tabindex="-1">
+
+  <!-- Mensagens de sucesso e erro -->
+  <div id="aviso" role="alert" hidden></div>
+
+  <!-- Quem não é professor/admin vê só isto -->
+  <section id="area-bloqueada" class="painel-cartao" hidden>
+    <h1>Acesso restrito</h1>
+    <p id="bloqueio-msg"></p>
+    <a href="login.html" class="btn-primario" style="display:inline-block;padding:.7rem 1.3rem;border-radius:999px;text-decoration:none;font-weight:700;">Ir para o login</a>
+  </section>
+
+  <div id="painel" hidden>
+    <h1>Painel de conteúdo</h1>
+    <p id="saudacao"></p>
+
+    <!-- ===== CURSOS ===== -->
+    <section class="painel-cartao" aria-labelledby="titulo-cursos">
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-cursos">Cursos</h2>
+        <button type="button" class="btn-primario" id="btn-novo-curso">+ Novo curso</button>
+      </div>
+      <div class="grade-painel-cursos" id="lista-cursos" aria-live="polite"></div>
+    </section>
+
+    <!-- Formulário de curso -->
+    <section class="painel-cartao" id="editor-curso" aria-labelledby="titulo-form-curso" hidden>
+      <h2 id="titulo-form-curso">Novo curso</h2>
+      <form id="form-curso" novalidate>
+        <div class="campo">
+          <label for="c-titulo">Título</label>
+          <input type="text" id="c-titulo" maxlength="160" required />
+        </div>
+        <div class="campo">
+          <label for="c-slug">Endereço do curso (slug)</label>
+          <p class="dica">Só letras minúsculas, números e hífens. Ex.: introducao-a-programacao</p>
+          <input type="text" id="c-slug" maxlength="120" required />
+        </div>
+        <div class="campo">
+          <label for="c-descricao">Descrição</label>
+          <textarea id="c-descricao" rows="3" maxlength="600" required></textarea>
+        </div>
+        <div class="campo">
+          <label for="c-categoria">Categoria</label>
+          <input type="text" id="c-categoria" maxlength="60" required />
+        </div>
+        <div class="campo">
+          <label for="c-nivel">Nível</label>
+          <select id="c-nivel" class="cfg-select">
+            <option>Iniciante</option>
+            <option>Básico</option>
+            <option>Intermediário</option>
+            <option>Avançado</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="c-duracao">Duração estimada (minutos)</label>
+          <input type="number" id="c-duracao" min="1" value="30" />
+        </div>
+        <fieldset class="campo">
+          <legend>Recursos de acessibilidade que o curso oferece</legend>
+          <div class="grade-checks" id="c-recursos"></div>
+        </fieldset>
+        <label class="termos">
+          <input type="checkbox" id="c-publicado" checked />
+          <span>Publicado (visível para os alunos)</span>
+        </label>
+        <div class="linha-acoes">
+          <button type="submit" class="btn-primario" id="btn-salvar-curso">Salvar curso</button>
+          <button type="button" class="btn-secundario" id="btn-cancelar-curso">Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== AULAS DO CURSO ESCOLHIDO ===== -->
+    <section class="painel-cartao" id="editor-aulas" aria-labelledby="titulo-aulas" hidden>
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-aulas">Aulas</h2>
+        <div class="linha-acoes">
+          <button type="button" class="btn-primario" id="btn-nova-aula">+ Nova aula</button>
+          <button type="button" class="btn-secundario" id="btn-fechar-aulas">Fechar</button>
+        </div>
+      </div>
+      <ul class="lista-simples" id="lista-aulas" style="margin-top:1rem;" aria-live="polite"></ul>
+    </section>
+
+    <!-- Formulário de aula -->
+    <section class="painel-cartao" id="editor-aula" aria-labelledby="titulo-form-aula" hidden>
+      <h2 id="titulo-form-aula">Nova aula</h2>
+      <form id="form-aula" novalidate>
+        <div class="campo">
+          <label for="a-titulo">Título da aula</label>
+          <input type="text" id="a-titulo" maxlength="160" required />
+        </div>
+        <div class="campo">
+          <label for="a-resumo">Resumo (frase curta que aparece abaixo do título)</label>
+          <input type="text" id="a-resumo" maxlength="300" />
+        </div>
+
+        <h3>Conteúdo da aula</h3>
+        <p class="dica">A aula é montada em blocos, na ordem em que aparecem aqui. Use ↑ e ↓ para reorganizar.</p>
+        <div id="blocos"></div>
+        <div class="linha-acoes" style="margin:1rem 0;">
+          <button type="button" class="btn-secundario" id="btn-add-bloco">+ Adicionar bloco</button>
+        </div>
+
+        <div class="linha-acoes">
+          <button type="submit" class="btn-primario" id="btn-salvar-aula">Salvar aula</button>
+          <button type="button" class="btn-secundario" id="btn-cancelar-aula">Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== MATERIAIS DA AULA (vídeo, PDF, áudio) ===== -->
+    <section class="painel-cartao" id="editor-materiais" aria-labelledby="titulo-materiais" hidden>
+      <div class="linha-acoes" style="justify-content:space-between;">
+        <h2 id="titulo-materiais">Materiais da aula</h2>
+        <button type="button" class="btn-secundario" id="btn-fechar-materiais">Fechar</button>
+      </div>
+      <ul class="lista-simples" id="lista-materiais" style="margin:1rem 0;" aria-live="polite"></ul>
+
+      <form id="form-material" novalidate>
+        <h3>Enviar novo material</h3>
+        <p class="dica">Vídeo (MP4, WebM) até 300 MB. PDF (livros, apostilas) e áudio (MP3, WAV, OGG, M4A) até 60 MB.
+          Para vídeos e áudios, envie também a <strong>transcrição em PDF</strong>: ela ajuda quem não pode ouvir.</p>
+        <div class="campo">
+          <label for="m-arquivo">Arquivo</label>
+          <input type="file" id="m-arquivo" accept=".pdf,.mp3,.wav,.ogg,.m4a,.mp4,.webm" />
+        </div>
+        <div class="campo">
+          <label for="m-titulo">Título do material</label>
+          <input type="text" id="m-titulo" maxlength="160" />
+        </div>
+        <div class="campo">
+          <label for="m-descricao">Descrição (opcional)</label>
+          <input type="text" id="m-descricao" maxlength="500" />
+        </div>
+        <button type="submit" class="btn-primario" id="btn-enviar-material">Enviar material</button>
+      </form>
+    </section>
+
+    <!-- ===== USUÁRIOS (só administrador) ===== -->
+    <section class="painel-cartao" id="area-usuarios" aria-labelledby="titulo-usuarios" hidden>
+      <h2 id="titulo-usuarios">Usuários e papéis</h2>
+      <p>Defina quem é aluno, professor ou administrador. Você não pode alterar o seu próprio papel.
+        Para punições e denúncias, use o <a href="admin.html">painel da administração</a>.</p>
+      <ul class="lista-simples" id="lista-usuarios"></ul>
+    </section>
+  </div>
+</main>
+
+<button class="cfg-btn" id="cfg-btn" aria-label="Abrir configurações de acessibilidade" aria-expanded="false" aria-controls="cfg-gaveta">⚙</button>
+
+<script>window.EDU_API_URL = "http://localhost:8080";</script>
+<script src="../js/api.js"></script>
+<script src="js/comum.js"></script>
+<script src="js/professor.js"></script>
+</body>
+</html>
