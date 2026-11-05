@@ -8,7 +8,9 @@
 (function (global) {
   "use strict";
 
-  const API = (global.EDU_API_URL || "http://localhost:8080") + "/api";
+  const ESTA_LOCAL = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+  const API_PRODUCAO = "https://eduacessivel-api-e4204.containers.snapdeploy.app";
+  const API = (ESTA_LOCAL ? (global.EDU_API_URL || "http://localhost:8080") : API_PRODUCAO) + "/api";
   const TOKEN_KEY = "eduacessivel_token";
 
   class ErroApi extends Error {
